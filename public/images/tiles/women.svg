@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f1e4e0"/>
+      <stop offset="1" stop-color="#6b3f3a" stop-opacity="0.18"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#g)"/>
+  <text x="400" y="500" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="45" letter-spacing="2" fill="#6b3f3a" opacity="0.4">WOMEN</text>
+</svg>
