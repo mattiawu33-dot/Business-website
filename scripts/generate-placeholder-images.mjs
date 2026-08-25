@@ -55,7 +55,10 @@ import { products } from "../src/data/products.ts";
 mkdirSync(path.join(publicDir, "products"), { recursive: true });
 mkdirSync(path.join(publicDir, "tiles"), { recursive: true });
 
+// Only products still pointing at placeholder SVGs get generated art —
+// products with real photography (.jpg paths) are left untouched.
 for (const p of products) {
+  if (!p.images.every((src) => src.endsWith(".svg"))) continue;
   const dir = path.join(publicDir, "products", p.slug);
   mkdirSync(dir, { recursive: true });
   p.images.forEach((_, i) => {

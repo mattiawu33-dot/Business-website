@@ -9,13 +9,13 @@ import PromoSection from "@/components/PromoSection";
 
 const FEATURED_SLUGS = [
   "structured-bomber-jacket",
-  "cashmere-blend-cardigan",
+  "chevron-knit-halter-dress",
   "tailored-wool-trousers",
-  "midi-wrap-dress",
+  "polka-dot-wrap-maxi-dress",
   "merino-half-zip",
-  "quilted-field-jacket",
+  "ivory-tailored-vest-set",
   "oxford-cotton-shirt",
-  "high-waist-wide-trousers",
+  "tie-dye-slip-maxi-dress",
 ];
 
 export default function Home() {
