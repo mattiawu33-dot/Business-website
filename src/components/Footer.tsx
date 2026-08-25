@@ -10,6 +10,8 @@ export default function Footer() {
           <ul className="flex flex-col gap-2 text-sm text-neutral-600">
             <li><Link href="/category/men" className="hover:text-neutral-900">Men</Link></li>
             <li><Link href="/category/women" className="hover:text-neutral-900">Women</Link></li>
+            <li><Link href="/category/promotion" className="hover:text-neutral-900">Promotion</Link></li>
+            <li><Link href="/category/kids" className="hover:text-neutral-900">Kids</Link></li>
             <li><Link href="/category/new" className="hover:text-neutral-900">New</Link></li>
             <li><Link href="/category/best-sellers" className="hover:text-neutral-900">Best Sellers</Link></li>
           </ul>

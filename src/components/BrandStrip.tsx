@@ -1,22 +1,26 @@
-import Image from "next/image";
+import Link from "next/link";
 
+/**
+ * Closing "About Us / mission" banner — the plain-language version of the
+ * brand's three pillars (styling versatility, affordable, fast), placed at
+ * the very bottom of the homepage per the build spec.
+ */
 export default function BrandStrip() {
   return (
-    <section className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 py-16 sm:px-6 md:flex-row lg:px-8">
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100 md:w-1/2">
-        <Image
-          src="/images/brand-strip.svg"
-          alt="Fabric and craftsmanship detail"
-          fill
-          sizes="(min-width: 768px) 50vw, 100vw"
-          className="object-cover"
-        />
-      </div>
-      <div className="w-full md:w-1/2">
-        <p className="text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-          Made from fabrics chosen to last, cut in shapes that don&apos;t chase seasons — clothing built to be worn,
-          not just bought.
+    <section className="bg-neutral-900 px-4 py-16 text-center sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-2xl">
+        <h2 className="text-2xl font-medium text-white sm:text-3xl">Style that keeps up with you</h2>
+        <p className="mt-4 text-base leading-relaxed text-neutral-300">
+          Ishue is built on three things: a wide range of styles for every age and occasion, prices below the
+          big names for comparable quality, and a catalog that turns over fast so there&apos;s always something
+          new to shop.
         </p>
+        <Link
+          href="/about"
+          className="mt-6 inline-block border border-white px-5 py-2 text-sm text-white transition hover:bg-accent hover:border-accent"
+        >
+          More about Ishue
+        </Link>
       </div>
     </section>
   );

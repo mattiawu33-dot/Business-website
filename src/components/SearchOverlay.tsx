@@ -7,8 +7,14 @@ import { products } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { CloseIcon, SearchIcon } from "@/components/icons";
 
-export default function SearchOverlay({ onClose }: { onClose: () => void }) {
-  const [query, setQuery] = useState("");
+export default function SearchOverlay({
+  onClose,
+  initialQuery = "",
+}: {
+  onClose: () => void;
+  initialQuery?: string;
+}) {
+  const [query, setQuery] = useState(initialQuery);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {

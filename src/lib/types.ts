@@ -1,4 +1,4 @@
-export type CategorySlug = "men" | "women" | "new" | "best-sellers";
+export type CategorySlug = "men" | "women" | "new" | "best-sellers" | "promotion" | "kids";
 
 export type Product = {
   id: string;
@@ -7,6 +7,7 @@ export type Product = {
   category: "men" | "women";
   isNew: boolean;
   isBestSeller: boolean;
+  onPromotion?: boolean;
   price: number;
   currency: "EUR";
   sizes: string[];

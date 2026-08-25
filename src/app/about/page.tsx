@@ -20,12 +20,17 @@ export default function AboutPage() {
       <div className="w-full md:w-1/2">
         <h1 className="text-2xl font-medium text-neutral-900">Our approach</h1>
         <p className="mt-4 text-base leading-relaxed text-neutral-700">
-          Ishue makes clothing meant to be worn often, not just bought once. We work with natural fabrics —
-          cotton, linen, wool, and cashmere blends — chosen for how they age, not just how they photograph.
+          Ishue is for people who want to stay current without paying premium prices for it. We carry the same
+          styles and quality you&apos;d find at the bigger names, priced lower — not because it&apos;s cheap, but
+          because it doesn&apos;t need to cost more.
         </p>
         <p className="mt-4 text-base leading-relaxed text-neutral-700">
-          Every piece is cut from a small set of shapes we keep returning to and refining, rather than chasing a
-          new silhouette every season. The result is a wardrobe that holds together, piece to piece, year to year.
+          Our catalog spans a wide range of styles and ages, so there&apos;s something here whether you&apos;re
+          dressing for a night out or a Tuesday. And because we move fast, the catalog keeps turning over — new
+          styles arrive often instead of waiting on a single seasonal drop.
+        </p>
+        <p className="mt-4 text-base leading-relaxed text-neutral-700">
+          Three things guide everything we make: styling versatility, affordable pricing, and speed.
         </p>
       </div>
     </div>

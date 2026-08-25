@@ -23,6 +23,11 @@ export default function ProductCard({ product, priority = false }: { product: Pr
             className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             priority={priority}
           />
+          {(product.isNew || product.isBestSeller) && (
+            <span className="absolute left-2 top-2 rounded-full bg-accent px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent-foreground">
+              {product.isNew ? "New" : "Best Seller"}
+            </span>
+          )}
         </div>
       </Link>
       <button

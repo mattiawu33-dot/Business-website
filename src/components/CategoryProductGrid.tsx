@@ -1,7 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { Product } from "@/lib/types";
+import { styleOf } from "@/lib/style";
 import ProductCard from "@/components/ProductCard";
 import ComingSoonCard from "@/components/ComingSoonCard";
 
@@ -12,11 +14,6 @@ const PRICE_BANDS = [
   { label: "Over €150", test: (p: number) => p > 150 },
 ];
 
-function styleOf(name: string) {
-  const words = name.split(" ");
-  return words[words.length - 1];
-}
-
 export default function CategoryProductGrid({
   products,
   comingSoonCount = 0,
@@ -24,8 +21,11 @@ export default function CategoryProductGrid({
   products: Product[];
   comingSoonCount?: number;
 }) {
+  const searchParams = useSearchParams();
+  const styleParam = searchParams.get("style");
+
   const [size, setSize] = useState("all");
-  const [style, setStyle] = useState("all");
+  const [style, setStyle] = useState(styleParam ?? "all");
   const [priceBand, setPriceBand] = useState(0);
 
   const styles = useMemo(

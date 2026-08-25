@@ -18,9 +18,12 @@ Open http://localhost:3000.
 
 - `src/app` — routes: `/` (home), `/category/[slug]`, `/product/[slug]`,
   `/about`, `/favorites`, `/cart`
-- `src/components` — Header, Footer, ProductCard, CategoryTile,
-  CategoryProductGrid (filter bar + grid + coming-soon slots), ProductDetail,
-  CartDrawer, SearchOverlay, BrandStrip, PromoSection
+- `src/components` — Header (nav with Men/Women dropdown subsections + left
+  search), Footer, ProductCard, CategoryProductGrid (filter bar + grid +
+  coming-soon slots), ArrowProductRow (arrow-scrolled product row, used for
+  Promotion/Bestsellers/Style rows), StyleSelector, ProductDetail, CartDrawer,
+  SearchOverlay, BrandStrip (closing mission banner), PromoSection (secondary
+  promo strip)
 - `src/context` — `CartContext` / `FavoritesContext`, persisted to
   `localStorage` (no backend yet — see Phase 2 notes)
 - `src/data/products.ts` — the catalog (real photography throughout: 7 Men,
@@ -35,7 +38,7 @@ Open http://localhost:3000.
   page, extracted at full resolution) down to web-appropriate JPEGs. Useful as
   a reference for processing the next photography batch the same way.
 
-## Phase 1 (this build)
+## Phase 1 (initial build)
 
 - Sticky header, full nav always visible (no hamburger, desktop or mobile)
 - Homepage: hero, category tiles, product carousel, brand strip, promo
@@ -43,6 +46,23 @@ Open http://localhost:3000.
 - Category template: breadcrumb, filter bar (size/style/price), product
   grid, "coming soon" cards for unfilled slots
 - PDP template: gallery, size selector, add-to-bag, favorite, related items
+
+## Phase 2 (revision pass, per `websitebuildspec_1.md`)
+
+- Nav: Men/Women/Promotion/Kids, Men/Women each with real-data-driven
+  subsection dropdowns (derived from product names via `src/lib/style.ts`),
+  search moved into a visible input on the left
+- Homepage reordered: hero (brand-led, small promo tag, no invented
+  discount %) → secondary promo strip → Current Promotion row → Bestsellers
+  row → Style selector row ("styling versatility" pillar) → mission banner
+- Copy rewritten off the sustainability/slow-fashion tone toward the three
+  real brand pillars: styling versatility, affordable, fast
+- Kids added to nav with an honest all-"coming soon" category page (no
+  confirmed real inventory yet); Promotion is a curated `onPromotion` flag
+  on real products, no fabricated discount percentages
+- Light/energetic visual theme (accent color, bolder hero type) chosen over
+  a dark/luxury direction — see Section 8 of the spec for why this was a
+  flagged decision rather than a default
 - Working client-side cart (drawer + `/cart` page) and favorites
   (`/favorites`), both `localStorage`-backed — checkout is intentionally a
   disabled "coming soon" state since no payment backend was in scope

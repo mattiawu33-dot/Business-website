@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Ishue",
-  description: "Considered clothing for everyday wear.",
+  description: "Style that keeps up with you — a wide range of trend-forward looks, priced to shop often.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

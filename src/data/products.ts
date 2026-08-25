@@ -10,6 +10,7 @@ export const products: Product[] = [
     category: "men",
     isNew: true,
     isBestSeller: false,
+    onPromotion: true,
     price: 129,
     currency: "EUR",
     sizes: SIZES,
@@ -23,6 +24,7 @@ export const products: Product[] = [
     category: "men",
     isNew: false,
     isBestSeller: false,
+    onPromotion: true,
     price: 89,
     currency: "EUR",
     sizes: SIZES,
@@ -143,6 +145,7 @@ export const products: Product[] = [
     category: "men",
     isNew: true,
     isBestSeller: false,
+    onPromotion: true,
     price: 129,
     currency: "EUR",
     sizes: SIZES,
@@ -233,6 +236,7 @@ export const products: Product[] = [
     name: "Chevron Knit Halter Dress",
     category: "women",
     isNew: true,
+    onPromotion: true,
     isBestSeller: false,
     price: 149,
     currency: "EUR",
@@ -263,6 +267,7 @@ export const products: Product[] = [
     name: "Blush Wide-Leg Cargo Trousers",
     category: "women",
     isNew: true,
+    onPromotion: true,
     isBestSeller: false,
     price: 99,
     currency: "EUR",
@@ -293,6 +298,7 @@ export const products: Product[] = [
     name: "Floral Wrap Mini Dress",
     category: "women",
     isNew: true,
+    onPromotion: true,
     isBestSeller: false,
     price: 99,
     currency: "EUR",
@@ -1213,5 +1219,15 @@ export function getRelated(product: Product, count = 4): Product[] {
 export function getProductsByCategory(slug: string): Product[] {
   if (slug === "new") return products.filter((p) => p.isNew);
   if (slug === "best-sellers") return products.filter((p) => p.isBestSeller);
+  if (slug === "promotion") return products.filter((p) => p.onPromotion);
+  if (slug === "kids") return [];
   return products.filter((p) => p.category === slug);
+}
+
+export function getPromotionPicks(count = 6): Product[] {
+  return products.filter((p) => p.onPromotion).slice(0, count);
+}
+
+export function getBestSellers(count = 6): Product[] {
+  return products.filter((p) => p.isBestSeller).slice(0, count);
 }

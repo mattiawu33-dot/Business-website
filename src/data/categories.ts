@@ -12,13 +12,25 @@ export const categories: CategoryMeta[] = [
     slug: "men",
     label: "Men",
     tileImage: "/images/tiles/men.svg",
-    description: "Tailored essentials and everyday staples.",
+    description: "Fast-turnover styles for everyday wear, priced to keep up with your rotation.",
   },
   {
     slug: "women",
     label: "Women",
     tileImage: "/images/tiles/women.svg",
-    description: "Considered pieces built to last a season and beyond.",
+    description: "A wide range of styles for every occasion, at a price that lets you shop often.",
+  },
+  {
+    slug: "promotion",
+    label: "Promotion",
+    tileImage: "/images/tiles/new.svg",
+    description: "This season's picks, marked down. Updated as promotions change.",
+  },
+  {
+    slug: "kids",
+    label: "Kids",
+    tileImage: "/images/tiles/best-sellers.svg",
+    description: "Coming soon — the kids line is on its way.",
   },
   {
     slug: "new",
