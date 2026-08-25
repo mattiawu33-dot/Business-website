@@ -244,7 +244,7 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A sleeveless tailored vest and wide-leg trouser set in ivory, cut for a sharp, fluid silhouette.",
-    images: ["/images/products/ivory-tailored-vest-set/1.jpg"],
+    images: ["/images/products/ivory-tailored-vest-set/1.jpg", "/images/products/ivory-tailored-vest-set/2.jpg"],
   },
   {
     id: "p19",
@@ -270,7 +270,7 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A satin cami top in a classic leopard print. Layers easily under a jacket or worn on its own.",
-    images: ["/images/products/leopard-print-cami/1.jpg"],
+    images: ["/images/products/leopard-print-cami/1.jpg", "/images/products/leopard-print-cami/2.jpg"],
   },
   {
     id: "p21",
@@ -369,7 +369,11 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "Relaxed, slouchy wide-leg jeans in a washed grey denim with an elasticated cuffed hem.",
-    images: ["/images/products/slouchy-wide-leg-jeans/1.jpg"],
+    images: [
+      "/images/products/slouchy-wide-leg-jeans/1.jpg",
+      "/images/products/slouchy-wide-leg-jeans/2.jpg",
+      "/images/products/slouchy-wide-leg-jeans/3.jpg",
+    ],
   },
   {
     id: "p28",
@@ -410,11 +414,9 @@ export const products: Product[] = [
     price: 99,
     currency: "EUR",
     sizes: SIZES,
-    description: "Baggy denim joggers with an elasticated cuffed hem, cut for a relaxed, low-slung fit.",
-    images: [
-      "/images/products/baggy-cuffed-denim-joggers/1.jpg",
-      "/images/products/baggy-cuffed-denim-joggers/2.jpg",
-    ],
+    description:
+      "Baggy denim joggers with an elasticated cuffed hem, finished with rhinestone embellishment at the front pockets.",
+    images: ["/images/products/baggy-cuffed-denim-joggers/1.jpg"],
   },
   {
     id: "p31",
@@ -590,7 +592,11 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A matching set: an off-shoulder ruffle-hem top with long sleeves, paired with wide-leg trousers.",
-    images: ["/images/products/off-shoulder-ruffle-set/1.jpg", "/images/products/off-shoulder-ruffle-set/2.jpg"],
+    images: [
+      "/images/products/off-shoulder-ruffle-set/1.jpg",
+      "/images/products/off-shoulder-ruffle-set/2.jpg",
+      "/images/products/off-shoulder-ruffle-set/3.jpg",
+    ],
   },
   {
     id: "p44",
@@ -603,7 +609,10 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A long-sleeve blouse in a bold leopard print, tied at the front hem for a cropped, relaxed fit.",
-    images: ["/images/products/leopard-print-tie-front-blouse/1.jpg"],
+    images: [
+      "/images/products/leopard-print-tie-front-blouse/1.jpg",
+      "/images/products/leopard-print-tie-front-blouse/2.jpg",
+    ],
   },
   {
     id: "p45",
@@ -746,7 +755,7 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A relaxed kimono in an olive tie-dye, with wide sleeves and a self-tie waist belt.",
-    images: ["/images/products/olive-tie-dye-kimono/1.jpg"],
+    images: ["/images/products/olive-tie-dye-kimono/1.jpg", "/images/products/olive-tie-dye-kimono/2.jpg"],
   },
   {
     id: "p56",
@@ -775,6 +784,8 @@ export const products: Product[] = [
     images: [
       "/images/products/halter-polka-dot-maxi-dress/1.jpg",
       "/images/products/halter-polka-dot-maxi-dress/2.jpg",
+      "/images/products/halter-polka-dot-maxi-dress/3.jpg",
+      "/images/products/halter-polka-dot-maxi-dress/4.jpg",
     ],
   },
   {
@@ -788,7 +799,10 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A belted midi dress in an abstract floral chiffon, with a pleated skirt and long balloon sleeves.",
-    images: ["/images/products/pleated-floral-midi-dress/1.jpg"],
+    images: [
+      "/images/products/pleated-floral-midi-dress/1.jpg",
+      "/images/products/pleated-floral-midi-dress/2.jpg",
+    ],
   },
   {
     id: "p59",
@@ -814,7 +828,10 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "An oversized batwing top in a bold watercolor floral, cropped with a gathered hem.",
-    images: ["/images/products/oversized-floral-print-top/1.jpg"],
+    images: [
+      "/images/products/oversized-floral-print-top/1.jpg",
+      "/images/products/oversized-floral-print-top/2.jpg",
+    ],
   },
   {
     id: "p61",
@@ -866,7 +883,10 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A fitted mini dress in chocolate brown, with a keyhole cutout at the neckline and a ruffled hem.",
-    images: ["/images/products/brown-cutout-ruffle-mini-dress/1.jpg"],
+    images: [
+      "/images/products/brown-cutout-ruffle-mini-dress/1.jpg",
+      "/images/products/brown-cutout-ruffle-mini-dress/2.jpg",
+    ],
   },
   {
     id: "p65",
@@ -879,7 +899,65 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A fluid satin maxi skirt in a bold floral border print, with a drawstring waist.",
-    images: ["/images/products/floral-print-maxi-skirt/1.jpg"],
+    images: ["/images/products/floral-print-maxi-skirt/1.jpg", "/images/products/floral-print-maxi-skirt/2.jpg"],
+  },
+  {
+    id: "p66",
+    slug: "leopard-print-slip-dress",
+    name: "Leopard Print Slip Dress",
+    category: "women",
+    isNew: true,
+    isBestSeller: false,
+    price: 109,
+    currency: "EUR",
+    sizes: SIZES,
+    description: "A bias-cut slip dress in a mesh leopard print, with fine spaghetti straps and a midi length.",
+    images: [
+      "/images/products/leopard-print-slip-dress/1.jpg",
+      "/images/products/leopard-print-slip-dress/2.jpg",
+    ],
+  },
+  {
+    id: "p67",
+    slug: "floral-bustier-trouser-set",
+    name: "Floral Bustier & Trouser Set",
+    category: "women",
+    isNew: false,
+    isBestSeller: false,
+    price: 149,
+    currency: "EUR",
+    sizes: SIZES,
+    description: "A matching set in a soft floral print: a boned bustier top with wide-leg, pocketed trousers.",
+    images: [
+      "/images/products/floral-bustier-trouser-set/1.jpg",
+      "/images/products/floral-bustier-trouser-set/2.jpg",
+    ],
+  },
+  {
+    id: "p68",
+    slug: "black-slit-slip-dress",
+    name: "Black Slit Slip Dress",
+    category: "women",
+    isNew: false,
+    isBestSeller: false,
+    price: 99,
+    currency: "EUR",
+    sizes: SIZES,
+    description: "A fitted midi slip dress in black, with thin straps and a side slit for ease of movement.",
+    images: ["/images/products/black-slit-slip-dress/1.jpg"],
+  },
+  {
+    id: "p69",
+    slug: "sequin-pocket-denim-skirt",
+    name: "Sequin Pocket Denim Skirt",
+    category: "women",
+    isNew: true,
+    isBestSeller: false,
+    price: 89,
+    currency: "EUR",
+    sizes: SIZES,
+    description: "A distressed denim mini skirt finished with a sequin patch pocket and heavy raw-edge distressing.",
+    images: ["/images/products/sequin-pocket-denim-skirt/1.jpg"],
   },
 ];
 
