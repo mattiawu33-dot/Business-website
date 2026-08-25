@@ -221,7 +221,7 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A matching two-piece in bold stripe: a puff-sleeve crop top with coordinating wide-leg trousers.",
-    images: ["/images/products/striped-puff-sleeve-set/1.jpg"],
+    images: ["/images/products/striped-puff-sleeve-set/1.jpg", "/images/products/striped-puff-sleeve-set/2.jpg"],
   },
   {
     id: "p17",
@@ -260,7 +260,11 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A midi shirt dress in a soft floral chiffon, with puff sleeves and a self-belted waist.",
-    images: ["/images/products/floral-belted-shirt-dress/1.jpg", "/images/products/floral-belted-shirt-dress/2.jpg"],
+    images: [
+      "/images/products/floral-belted-shirt-dress/1.jpg",
+      "/images/products/floral-belted-shirt-dress/2.jpg",
+      "/images/products/floral-belted-shirt-dress/3.jpg",
+    ],
   },
   {
     id: "p20",
@@ -550,6 +554,7 @@ export const products: Product[] = [
     images: [
       "/images/products/chevron-knit-wide-leg-trousers/1.jpg",
       "/images/products/chevron-knit-wide-leg-trousers/2.jpg",
+      "/images/products/chevron-knit-wide-leg-trousers/3.jpg",
     ],
   },
   {
@@ -884,7 +889,10 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A wrap dress in a mixed patchwork print, with sheer puff sleeves and a self-tie waist.",
-    images: ["/images/products/patchwork-print-wrap-dress/1.jpg"],
+    images: [
+      "/images/products/patchwork-print-wrap-dress/1.jpg",
+      "/images/products/patchwork-print-wrap-dress/2.jpg",
+    ],
   },
   {
     id: "p64",
@@ -1003,7 +1011,11 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A ribbed corset top with a dramatic cascading ruffle hem, laced up the front.",
-    images: ["/images/products/ruffle-hem-corset-top/1.jpg"],
+    images: [
+      "/images/products/ruffle-hem-corset-top/1.jpg",
+      "/images/products/ruffle-hem-corset-top/2.jpg",
+      "/images/products/ruffle-hem-corset-top/3.jpg",
+    ],
   },
   {
     id: "p72",
@@ -1043,6 +1055,32 @@ export const products: Product[] = [
     sizes: SIZES,
     description: "A strapless dress in blush pink, finished with an asymmetric ruffle at the high-low hem.",
     images: ["/images/products/pink-strapless-ruffle-dress/1.jpg"],
+  },
+  {
+    id: "p75",
+    slug: "lilac-silk-pajama-set",
+    name: "Lilac Silk Pajama Set",
+    category: "women",
+    isNew: true,
+    isBestSeller: false,
+    price: 139,
+    currency: "EUR",
+    sizes: SIZES,
+    description: "A fluid two-piece in lilac silk: an oversized shirt paired with drawstring-waist trousers.",
+    images: ["/images/products/lilac-silk-pajama-set/1.jpg"],
+  },
+  {
+    id: "p76",
+    slug: "rust-linen-tank-shorts-set",
+    name: "Rust Linen Tank & Shorts Set",
+    category: "women",
+    isNew: false,
+    isBestSeller: false,
+    price: 99,
+    currency: "EUR",
+    sizes: SIZES,
+    description: "A relaxed linen set in rust: a sleeveless tank paired with belted, cuffed shorts.",
+    images: ["/images/products/rust-linen-tank-shorts-set/1.jpg"],
   },
 ];
 
