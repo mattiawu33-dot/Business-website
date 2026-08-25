@@ -8,13 +8,13 @@ import BrandStrip from "@/components/BrandStrip";
 import PromoSection from "@/components/PromoSection";
 
 const FEATURED_SLUGS = [
-  "structured-bomber-jacket",
+  "rhinestone-panel-wide-leg-jeans",
   "chevron-knit-halter-dress",
-  "tailored-wool-trousers",
+  "khaki-drawstring-wide-leg-trousers",
   "polka-dot-wrap-maxi-dress",
-  "merino-half-zip",
+  "soy-loco-graphic-tee",
   "ivory-tailored-vest-set",
-  "oxford-cotton-shirt",
+  "come-ti-soffro-graphic-tee",
   "tie-dye-slip-maxi-dress",
 ];
 

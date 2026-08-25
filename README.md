@@ -2,8 +2,8 @@
 
 Next.js (App Router) + TypeScript + Tailwind CSS. Built skeleton-first per
 `websitebuildspec.md`: full structure, nav, and reusable templates are live.
-The Women's line (16 items) uses real photography sourced from the client's
-existing product shots; Men's still uses placeholder art pending real photos.
+Both the Women's and Men's lines now use real photography sourced from the
+client's existing product shots.
 
 ## Getting started
 
@@ -23,15 +23,15 @@ Open http://localhost:3000.
   CartDrawer, SearchOverlay, BrandStrip, PromoSection
 - `src/context` — `CartContext` / `FavoritesContext`, persisted to
   `localStorage` (no backend yet — see Phase 2 notes)
-- `src/data/products.ts` — the catalog (24 items: 8 Men placeholder, 16 Women
-  real photos), tagged `isNew` / `isBestSeller`. `src/data/categories.ts`
-  drives nav + tiles.
+- `src/data/products.ts` — the catalog (real photography throughout: 7 Men,
+  67+ Women), tagged `isNew` / `isBestSeller`. `src/data/categories.ts` drives
+  nav + tiles.
 - `scripts/generate-placeholder-images.mjs` — generates the consistent-style
   placeholder SVG art in `public/images` for any product still pointing at a
-  `.svg` path (skips products with real `.jpg` photography). Re-run after
-  adding placeholder products: `node scripts/generate-placeholder-images.mjs`
-- `scripts/process_pdf_photos.py` — one-off script used to resize/compress the
-  real Women's photos (sourced as a PDF export from the client, one photo per
+  `.svg` path (skips products with real `.jpg` photography). Only needed again
+  if a brand-new category/product line starts without photography yet.
+- `scripts/process_pdf_photos*.py` — one-off scripts used to resize/compress
+  each real photo batch (sourced as PDF exports from the client, one photo per
   page, extracted at full resolution) down to web-appropriate JPEGs. Useful as
   a reference for processing the next photography batch the same way.
 
