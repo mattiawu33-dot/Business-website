@@ -139,7 +139,7 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A fitted mini dress with a soft ruched waist and a tiered ruffle hem for easy movement.",
-    images: ["/images/products/tiered-ruffle-mini-dress/1.jpg"],
+    images: ["/images/products/tiered-ruffle-mini-dress/1.jpg", "/images/products/tiered-ruffle-mini-dress/2.jpg"],
   },
   {
     id: "p11",
@@ -152,7 +152,10 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "High-waisted wide-leg trousers in soft blush twill, with patch pockets and clean topstitching.",
-    images: ["/images/products/blush-wide-leg-cargo-trousers/1.jpg"],
+    images: [
+      "/images/products/blush-wide-leg-cargo-trousers/1.jpg",
+      "/images/products/blush-wide-leg-cargo-trousers/2.jpg",
+    ],
   },
   {
     id: "p12",
@@ -257,7 +260,7 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A midi shirt dress in a soft floral chiffon, with puff sleeves and a self-belted waist.",
-    images: ["/images/products/floral-belted-shirt-dress/1.jpg"],
+    images: ["/images/products/floral-belted-shirt-dress/1.jpg", "/images/products/floral-belted-shirt-dress/2.jpg"],
   },
   {
     id: "p20",
@@ -270,7 +273,11 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A satin cami top in a classic leopard print. Layers easily under a jacket or worn on its own.",
-    images: ["/images/products/leopard-print-cami/1.jpg", "/images/products/leopard-print-cami/2.jpg"],
+    images: [
+      "/images/products/leopard-print-cami/1.jpg",
+      "/images/products/leopard-print-cami/2.jpg",
+      "/images/products/leopard-print-cami/3.jpg",
+    ],
   },
   {
     id: "p21",
@@ -540,7 +547,10 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "Wide-leg knit trousers in a multicolor chevron pattern, with a fluid drape and elastic waist.",
-    images: ["/images/products/chevron-knit-wide-leg-trousers/1.jpg"],
+    images: [
+      "/images/products/chevron-knit-wide-leg-trousers/1.jpg",
+      "/images/products/chevron-knit-wide-leg-trousers/2.jpg",
+    ],
   },
   {
     id: "p40",
@@ -729,7 +739,10 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A halter dress pairing a scalloped black bodice with a bold floral maxi skirt.",
-    images: ["/images/products/floral-skirt-halter-dress/1.jpg"],
+    images: [
+      "/images/products/floral-skirt-halter-dress/1.jpg",
+      "/images/products/floral-skirt-halter-dress/2.jpg",
+    ],
   },
   {
     id: "p54",
@@ -831,6 +844,7 @@ export const products: Product[] = [
     images: [
       "/images/products/oversized-floral-print-top/1.jpg",
       "/images/products/oversized-floral-print-top/2.jpg",
+      "/images/products/oversized-floral-print-top/3.jpg",
     ],
   },
   {
@@ -899,7 +913,11 @@ export const products: Product[] = [
     currency: "EUR",
     sizes: SIZES,
     description: "A fluid satin maxi skirt in a bold floral border print, with a drawstring waist.",
-    images: ["/images/products/floral-print-maxi-skirt/1.jpg", "/images/products/floral-print-maxi-skirt/2.jpg"],
+    images: [
+      "/images/products/floral-print-maxi-skirt/1.jpg",
+      "/images/products/floral-print-maxi-skirt/2.jpg",
+      "/images/products/floral-print-maxi-skirt/3.jpg",
+    ],
   },
   {
     id: "p66",
@@ -915,6 +933,7 @@ export const products: Product[] = [
     images: [
       "/images/products/leopard-print-slip-dress/1.jpg",
       "/images/products/leopard-print-slip-dress/2.jpg",
+      "/images/products/leopard-print-slip-dress/3.jpg",
     ],
   },
   {
@@ -931,6 +950,7 @@ export const products: Product[] = [
     images: [
       "/images/products/floral-bustier-trouser-set/1.jpg",
       "/images/products/floral-bustier-trouser-set/2.jpg",
+      "/images/products/floral-bustier-trouser-set/3.jpg",
     ],
   },
   {
@@ -958,6 +978,71 @@ export const products: Product[] = [
     sizes: SIZES,
     description: "A distressed denim mini skirt finished with a sequin patch pocket and heavy raw-edge distressing.",
     images: ["/images/products/sequin-pocket-denim-skirt/1.jpg"],
+  },
+  {
+    id: "p70",
+    slug: "pinstripe-corset-trouser-set",
+    name: "Pinstripe Corset & Trouser Set",
+    category: "women",
+    isNew: true,
+    isBestSeller: false,
+    price: 159,
+    currency: "EUR",
+    sizes: SIZES,
+    description: "A matching set in ivory pinstripe: a strapless button-front corset with wide-leg trousers.",
+    images: ["/images/products/pinstripe-corset-trouser-set/1.jpg"],
+  },
+  {
+    id: "p71",
+    slug: "ruffle-hem-corset-top",
+    name: "Ruffle-Hem Corset Top",
+    category: "women",
+    isNew: false,
+    isBestSeller: false,
+    price: 89,
+    currency: "EUR",
+    sizes: SIZES,
+    description: "A ribbed corset top with a dramatic cascading ruffle hem, laced up the front.",
+    images: ["/images/products/ruffle-hem-corset-top/1.jpg"],
+  },
+  {
+    id: "p72",
+    slug: "burgundy-floral-mesh-midi-dress",
+    name: "Burgundy Floral Mesh Midi Dress",
+    category: "women",
+    isNew: false,
+    isBestSeller: false,
+    price: 119,
+    currency: "EUR",
+    sizes: SIZES,
+    description: "A fitted midi dress in a burgundy floral mesh, with a cowl neckline and fine straps.",
+    images: ["/images/products/burgundy-floral-mesh-midi-dress/1.jpg"],
+  },
+  {
+    id: "p73",
+    slug: "brown-trapeze-mini-dress",
+    name: "Brown Trapeze Mini Dress",
+    category: "women",
+    isNew: false,
+    isBestSeller: false,
+    price: 79,
+    currency: "EUR",
+    sizes: SIZES,
+    description: "A simple trapeze mini dress in chocolate brown jersey, with a V-neck and a swingy A-line cut.",
+    images: ["/images/products/brown-trapeze-mini-dress/1.jpg"],
+  },
+  {
+    id: "p74",
+    slug: "pink-strapless-ruffle-dress",
+    name: "Pink Strapless Ruffle Dress",
+    category: "women",
+    isNew: true,
+    isBestSeller: false,
+    price: 109,
+    currency: "EUR",
+    sizes: SIZES,
+    description: "A strapless dress in blush pink, finished with an asymmetric ruffle at the high-low hem.",
+    images: ["/images/products/pink-strapless-ruffle-dress/1.jpg"],
   },
 ];
 
