@@ -33,15 +33,17 @@ export default function ProductCard({ product, priority = false }: { product: Pr
             className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             priority={priority}
           />
-          {(product.isNew || product.isBestSeller) && (
+          {(product.isNew || product.isBestSeller || product.isBackInStock) && (
             <span
               className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
                 product.isNew
                   ? "bg-accent-secondary text-accent-secondary-foreground"
-                  : "bg-accent text-accent-foreground"
+                  : product.isBestSeller
+                    ? "bg-accent text-accent-foreground"
+                    : "bg-neutral-900 text-white"
               }`}
             >
-              {product.isNew ? "New" : "Best Seller"}
+              {product.isNew ? "New" : product.isBestSeller ? "Best Seller" : "Back in Stock"}
             </span>
           )}
         </div>

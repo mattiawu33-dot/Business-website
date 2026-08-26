@@ -7,6 +7,7 @@ export type Product = {
   category: "men" | "women";
   isNew: boolean;
   isBestSeller: boolean;
+  isBackInStock?: boolean;
   onPromotion?: boolean;
   price: number;
   currency: "EUR";

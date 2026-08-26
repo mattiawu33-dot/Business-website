@@ -4,17 +4,14 @@ import { useState } from "react";
 import Image from "next/image";
 import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
-import { useCart } from "@/context/CartContext";
 import { useFavorites } from "@/context/FavoritesContext";
 import { useAuth } from "@/context/AuthContext";
 import { HeartIcon } from "@/components/icons";
+import ContactButton from "@/components/ContactButton";
 
 export default function ProductDetail({ product }: { product: Product }) {
   const [activeImage, setActiveImage] = useState(0);
   const [size, setSize] = useState<string | null>(null);
-  const [error, setError] = useState(false);
-  const [added, setAdded] = useState(false);
-  const { addToCart } = useCart();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { isLoggedIn, promptLogin } = useAuth();
   const favorited = isFavorite(product.slug);
@@ -26,16 +23,6 @@ export default function ProductDetail({ product }: { product: Product }) {
     }
     toggleFavorite(product.slug);
   }
-
-  const handleAddToCart = () => {
-    if (!size) {
-      setError(true);
-      return;
-    }
-    addToCart(product.slug, size, 1);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
-  };
 
   return (
     <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-8 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
@@ -73,6 +60,19 @@ export default function ProductDetail({ product }: { product: Product }) {
 
       {/* Info */}
       <div className="flex flex-col">
+        {(product.isNew || product.isBestSeller || product.isBackInStock) && (
+          <span
+            className={`mb-2 w-fit rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+              product.isNew
+                ? "bg-accent-secondary text-accent-secondary-foreground"
+                : product.isBestSeller
+                  ? "bg-accent text-accent-foreground"
+                  : "bg-neutral-900 text-white"
+            }`}
+          >
+            {product.isNew ? "New" : product.isBestSeller ? "Best Seller" : "Back in Stock"}
+          </span>
+        )}
         <div className="flex items-start justify-between gap-4">
           <h1 className="text-2xl font-medium text-neutral-900">{product.name}</h1>
           <button
@@ -97,10 +97,7 @@ export default function ProductDetail({ product }: { product: Product }) {
               <button
                 key={s}
                 type="button"
-                onClick={() => {
-                  setSize(s);
-                  setError(false);
-                }}
+                onClick={() => setSize(s)}
                 aria-pressed={size === s}
                 className={`h-11 min-w-11 rounded-md border px-3 text-sm transition ${
                   size === s
@@ -112,28 +109,11 @@ export default function ProductDetail({ product }: { product: Product }) {
               </button>
             ))}
           </div>
-          {error && <p className="mt-2 text-xs text-red-600">Please select a size.</p>}
         </div>
 
-        <button
-          type="button"
-          onClick={handleAddToCart}
-          className="mt-6 w-full rounded-md bg-accent py-3.5 text-sm font-medium text-accent-foreground transition hover:brightness-95"
-        >
-          {added ? "Added to bag" : "Add to bag"}
-        </button>
+        <ContactButton />
 
         <p className="mt-8 text-sm leading-relaxed text-neutral-600">{product.description}</p>
-
-        <details className="mt-8 border-t border-border pt-4 text-sm text-neutral-700">
-          <summary className="cursor-pointer list-none font-medium text-neutral-900">
-            Delivery &amp; returns
-          </summary>
-          <p className="mt-2 leading-relaxed text-muted">
-            Standard delivery in 3–5 business days. Free returns within 30 days of delivery, unworn and with tags
-            attached.
-          </p>
-        </details>
       </div>
     </div>
   );

@@ -2,13 +2,12 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { useCart } from "@/context/CartContext";
 import { useFavorites } from "@/context/FavoritesContext";
 import { useAuth } from "@/context/AuthContext";
 import { products } from "@/data/products";
 import { styleOf } from "@/lib/style";
 import SearchOverlay from "@/components/SearchOverlay";
-import { BagIcon, CloseIcon, HeartIcon, MenuIcon, SearchIcon, UserIcon } from "@/components/icons";
+import { CloseIcon, HeartIcon, MenuIcon, SearchIcon, UserIcon } from "@/components/icons";
 
 type NavLink = {
   label: string;
@@ -32,7 +31,6 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openMobileGroup, setOpenMobileGroup] = useState<string | null>(null);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
-  const { count, open: openCart } = useCart();
   const { favorites } = useFavorites();
   const { email, isLoggedIn, logout, promptLogin } = useAuth();
 
@@ -181,19 +179,6 @@ export default function Header() {
                 </span>
               )}
             </Link>
-            <button
-              type="button"
-              onClick={openCart}
-              aria-label="Cart"
-              className="relative text-neutral-700 transition hover:text-accent"
-            >
-              <BagIcon className="h-5 w-5" />
-              {count > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] text-accent-foreground">
-                  {count}
-                </span>
-              )}
-            </button>
           </div>
         </div>
 
