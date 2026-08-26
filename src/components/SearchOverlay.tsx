@@ -64,8 +64,14 @@ export default function SearchOverlay({
   }, [q]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/30" role="dialog" aria-modal="true" aria-label="Search">
-      <div className="mx-auto max-w-2xl bg-white px-4 pt-6 shadow-lg sm:px-6">
+    <div
+      className="fixed inset-0 z-50 bg-black/30"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Search"
+      onClick={onClose}
+    >
+      <div className="mx-auto max-w-2xl bg-white px-4 pt-6 shadow-lg sm:px-6" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center gap-3 border-b border-border pb-4">
           <SearchIcon className="h-5 w-5 text-neutral-400" />
           <input

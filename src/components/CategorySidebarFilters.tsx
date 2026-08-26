@@ -9,24 +9,61 @@ export const PRICE_BANDS: PriceBand[] = [
   { label: "Over €150", test: (p) => p > 150 },
 ];
 
+export const COLOR_SWATCHES: Record<string, string> = {
+  Black: "#111111",
+  Blue: "#2563eb",
+  Brown: "#7b4b2a",
+  Green: "#16a34a",
+  Gray: "#6b7280",
+  Multicolor: "conic-gradient(#e8483a, #ffc845, #16a34a, #2563eb, #9333ea, #e8483a)",
+  Orange: "#f97316",
+  Pink: "#ec4899",
+  Purple: "#9333ea",
+  Red: "#dc2626",
+  White: "#ffffff",
+  Yellow: "#facc15",
+};
+
+function ExpandIcon() {
+  return (
+    <span className="ml-auto text-neutral-400">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  );
+}
+
+function FilterDetails({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <details className="group border-b border-border pb-4">
+      <summary className="flex cursor-pointer list-none items-center text-sm font-medium text-neutral-900">
+        {title}
+        <ExpandIcon />
+      </summary>
+      <div className="mt-3">{children}</div>
+    </details>
+  );
+}
+
 function RadioGroup({
   title,
   allLabel,
   options,
   value,
   onChange,
+  swatches,
 }: {
   title: string;
   allLabel: string;
   options: string[];
   value: string;
   onChange: (v: string) => void;
+  swatches?: Record<string, string>;
 }) {
   if (options.length === 0) return null;
   return (
-    <details open className="border-b border-border pb-4">
-      <summary className="cursor-pointer list-none text-sm font-medium text-neutral-900">{title}</summary>
-      <div className="mt-3 flex flex-col gap-2">
+    <FilterDetails title={title}>
+      <div className="flex flex-col gap-2">
         <label className="flex items-center gap-2 text-sm text-neutral-700">
           <input
             type="radio"
@@ -46,11 +83,18 @@ function RadioGroup({
               onChange={() => onChange(o)}
               className="h-4 w-4 accent-[var(--accent)]"
             />
+            {swatches && (
+              <span
+                className="h-4 w-4 shrink-0 rounded-full border border-border"
+                style={{ background: swatches[o] }}
+                aria-hidden
+              />
+            )}
             {o}
           </label>
         ))}
       </div>
-    </details>
+    </FilterDetails>
   );
 }
 
@@ -100,14 +144,17 @@ export default function CategorySidebarFilters({
   onClearAll: () => void;
 }) {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 [&>details:last-of-type]:border-b-0 [&>details:last-of-type]:pb-0">
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-900">Filters</h2>
-        {hasActiveFilters && (
-          <button type="button" onClick={onClearAll} className="text-xs text-accent underline underline-offset-2">
-            Clear all
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={onClearAll}
+          disabled={!hasActiveFilters}
+          className="text-xs underline underline-offset-2 text-accent disabled:text-muted disabled:no-underline"
+        >
+          Clear all
+        </button>
       </div>
 
       {showPromoToggle && (
@@ -122,9 +169,8 @@ export default function CategorySidebarFilters({
         </label>
       )}
 
-      <details open className="border-b border-border pb-4">
-        <summary className="cursor-pointer list-none text-sm font-medium text-neutral-900">Price</summary>
-        <div className="mt-3 flex flex-col gap-2">
+      <FilterDetails title="Price">
+        <div className="flex flex-col gap-2">
           {PRICE_BANDS.map((band, i) => (
             <label key={band.label} className="flex items-center gap-2 text-sm text-neutral-700">
               <input
@@ -138,18 +184,24 @@ export default function CategorySidebarFilters({
             </label>
           ))}
         </div>
-      </details>
+      </FilterDetails>
 
       <RadioGroup title="Type" allLabel="All types" options={styles} value={style} onChange={setStyle} />
-      <RadioGroup title="Color" allLabel="All colors" options={colors} value={color} onChange={setColor} />
+      <RadioGroup
+        title="Color"
+        allLabel="All colors"
+        options={colors}
+        value={color}
+        onChange={setColor}
+        swatches={COLOR_SWATCHES}
+      />
       {fits.length > 1 && (
         <RadioGroup title="Fit" allLabel="All fits" options={fits} value={fit} onChange={setFit} />
       )}
       <RadioGroup title="Features" allLabel="All features" options={features} value={feature} onChange={setFeature} />
 
-      <details open className="pb-2">
-        <summary className="cursor-pointer list-none text-sm font-medium text-neutral-900">Size</summary>
-        <div className="mt-3 flex flex-wrap gap-2">
+      <FilterDetails title="Size">
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => setSize("all")}
@@ -174,7 +226,7 @@ export default function CategorySidebarFilters({
             </button>
           ))}
         </div>
-      </details>
+      </FilterDetails>
     </div>
   );
 }

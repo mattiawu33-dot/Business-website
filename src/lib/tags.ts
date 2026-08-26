@@ -1,14 +1,48 @@
 import type { Product } from "@/lib/types";
 
-// Color/Fit/Features have no structured field in the catalog, so they're
+// Fit/Features/Color have no structured field in the catalog, so they're
 // derived from the real product name + description text (same spirit as
 // styleOf in style.ts) rather than invented — a product only gets a tag if
-// the word genuinely appears in its own copy.
-const COLOR_WORDS = [
-  "black", "white", "ivory", "cream", "khaki", "grey", "gray", "navy", "olive", "rust",
-  "blush", "lavender", "burgundy", "brown", "tan", "beige", "pink", "red", "green", "blue",
-  "purple", "yellow", "orange", "gold", "silver", "charcoal", "wine", "mustard",
+// the word genuinely appears in its own copy. Color is further bucketed
+// into a small set of standard, instantly-recognizable names (rather than
+// exposing raw descriptive words like "blush" or "ivory" directly) so the
+// filter reads as plain colors, not designer-tone jargon.
+const COLOR_BUCKETS: Record<string, string> = {
+  black: "Black",
+  white: "White",
+  ivory: "White",
+  cream: "White",
+  khaki: "Brown",
+  tan: "Brown",
+  beige: "Brown",
+  brown: "Brown",
+  navy: "Blue",
+  blue: "Blue",
+  olive: "Green",
+  green: "Green",
+  grey: "Gray",
+  gray: "Gray",
+  charcoal: "Gray",
+  silver: "Gray",
+  rust: "Orange",
+  orange: "Orange",
+  blush: "Pink",
+  pink: "Pink",
+  lavender: "Purple",
+  purple: "Purple",
+  burgundy: "Red",
+  wine: "Red",
+  red: "Red",
+  gold: "Yellow",
+  mustard: "Yellow",
+  yellow: "Yellow",
+};
+// Pattern words imply more than one color at once, so they take priority
+// over any single color word also present in the same text.
+const PATTERN_WORDS = [
+  "polka dot", "floral", "tie-dye", "leopard print", "chevron knit", "striped", "colorblock", "abstract print", "plaid",
 ];
+
 const FIT_OVERSIZED_WORDS = ["oversized", "baggy", "loose", "relaxed", "slouchy", "wide-leg", "wide leg"];
 const FIT_SLIM_WORDS = ["slim", "skinny", "fitted", "bodycon", "cropped", "corset", "tailored", "bustier"];
 const FEATURE_WORDS = [
@@ -27,8 +61,9 @@ function textOf(p: Product) {
 
 export function colorOf(p: Product): string | null {
   const t = textOf(p);
-  const hit = COLOR_WORDS.find((c) => t.includes(c));
-  return hit ? capitalize(hit) : null;
+  if (PATTERN_WORDS.some((w) => t.includes(w))) return "Multicolor";
+  const hit = Object.keys(COLOR_BUCKETS).find((word) => t.includes(word));
+  return hit ? COLOR_BUCKETS[hit] : null;
 }
 
 export function fitOf(p: Product): string {
