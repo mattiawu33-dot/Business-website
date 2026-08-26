@@ -5,7 +5,35 @@ import Image from "next/image";
 import Link from "next/link";
 import { products } from "@/data/products";
 import { formatPrice } from "@/lib/format";
+import { styleOf } from "@/lib/style";
 import { CloseIcon, SearchIcon } from "@/components/icons";
+
+const SUGGESTED_TERMS = (() => {
+  const counts = new Map<string, number>();
+  for (const p of products) {
+    const s = styleOf(p.name).toLowerCase();
+    counts.set(s, (counts.get(s) ?? 0) + 1);
+  }
+  return Array.from(counts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([s]) => s);
+})();
+
+function highlight(name: string, query: string) {
+  if (!query) return name;
+  const i = name.toLowerCase().indexOf(query.toLowerCase());
+  if (i === -1) return name;
+  return (
+    <>
+      {name.slice(0, i)}
+      <mark className="rounded-sm bg-accent-secondary text-accent-secondary-foreground">
+        {name.slice(i, i + query.length)}
+      </mark>
+      {name.slice(i + query.length)}
+    </>
+  );
+}
 
 export default function SearchOverlay({
   onClose,
@@ -29,16 +57,16 @@ export default function SearchOverlay({
     return () => document.removeEventListener("keydown", onKey);
   }, [onClose]);
 
+  const q = query.trim().toLowerCase();
   const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
     if (!q) return [];
     return products.filter((p) => p.name.toLowerCase().includes(q) || p.category.includes(q)).slice(0, 8);
-  }, [query]);
+  }, [q]);
 
   return (
     <div className="fixed inset-0 z-50 bg-black/30" role="dialog" aria-modal="true" aria-label="Search">
       <div className="mx-auto max-w-2xl bg-white px-4 pt-6 shadow-lg sm:px-6">
-        <div className="flex items-center gap-3 border-b border-neutral-300 pb-4">
+        <div className="flex items-center gap-3 border-b border-border pb-4">
           <SearchIcon className="h-5 w-5 text-neutral-400" />
           <input
             ref={inputRef}
@@ -46,6 +74,7 @@ export default function SearchOverlay({
             onChange={(e) => setQuery(e.target.value)}
             type="text"
             placeholder="Search products"
+            aria-label="Search products"
             className="w-full text-base outline-none placeholder:text-neutral-400"
           />
           <button type="button" onClick={onClose} aria-label="Close search" className="text-neutral-500">
@@ -53,8 +82,28 @@ export default function SearchOverlay({
           </button>
         </div>
         <div className="max-h-[70vh] overflow-y-auto py-4">
-          {query.trim() && results.length === 0 && (
-            <p className="py-8 text-center text-sm text-neutral-500">No results for &ldquo;{query}&rdquo;.</p>
+          {!q && (
+            <div className="px-2">
+              <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted">Popular searches</p>
+              <div className="flex flex-wrap gap-2">
+                {SUGGESTED_TERMS.map((term) => (
+                  <button
+                    key={term}
+                    type="button"
+                    onClick={() => setQuery(term)}
+                    className="rounded-full border border-border px-3 py-1.5 text-sm text-neutral-700 transition hover:border-accent hover:text-accent"
+                  >
+                    {term}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          {q && results.length === 0 && (
+            <p className="px-2 py-8 text-center text-sm text-muted">
+              No matches for &ldquo;{query}&rdquo; — try &ldquo;{SUGGESTED_TERMS[0]}&rdquo; or &ldquo;
+              {SUGGESTED_TERMS[1]}&rdquo;.
+            </p>
           )}
           <ul className="flex flex-col gap-1">
             {results.map((p) => (
@@ -68,8 +117,8 @@ export default function SearchOverlay({
                     <Image src={p.images[0]} alt="" fill sizes="44px" className="object-cover" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-sm text-neutral-800">{p.name}</span>
-                    <span className="text-sm text-neutral-500">{formatPrice(p.price, p.currency)}</span>
+                    <span className="text-sm text-neutral-800">{highlight(p.name, query.trim())}</span>
+                    <span className="text-sm text-muted">{formatPrice(p.price, p.currency)}</span>
                   </div>
                 </Link>
               </li>

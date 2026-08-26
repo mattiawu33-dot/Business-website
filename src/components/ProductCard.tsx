@@ -24,7 +24,13 @@ export default function ProductCard({ product, priority = false }: { product: Pr
             priority={priority}
           />
           {(product.isNew || product.isBestSeller) && (
-            <span className="absolute left-2 top-2 rounded-full bg-accent px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent-foreground">
+            <span
+              className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+                product.isNew
+                  ? "bg-accent-secondary text-accent-secondary-foreground"
+                  : "bg-accent text-accent-foreground"
+              }`}
+            >
               {product.isNew ? "New" : "Best Seller"}
             </span>
           )}
@@ -41,7 +47,7 @@ export default function ProductCard({ product, priority = false }: { product: Pr
       </button>
       <Link href={`/product/${product.slug}`} className="mt-3 flex flex-col gap-0.5">
         <span className="text-sm text-neutral-800">{product.name}</span>
-        <span className="text-sm text-neutral-500">{formatPrice(product.price, product.currency)}</span>
+        <span className="text-sm text-muted">{formatPrice(product.price, product.currency)}</span>
       </Link>
     </div>
   );

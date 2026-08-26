@@ -7,7 +7,7 @@ import { useFavorites } from "@/context/FavoritesContext";
 import { products } from "@/data/products";
 import { styleOf } from "@/lib/style";
 import SearchOverlay from "@/components/SearchOverlay";
-import { BagIcon, HeartIcon, SearchIcon } from "@/components/icons";
+import { BagIcon, CloseIcon, HeartIcon, MenuIcon, SearchIcon } from "@/components/icons";
 
 type NavLink = {
   label: string;
@@ -28,6 +28,8 @@ function subsectionsFor(category: "men" | "women") {
 export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openMobileGroup, setOpenMobileGroup] = useState<string | null>(null);
   const { count, open: openCart } = useCart();
   const { favorites } = useFavorites();
 
@@ -47,11 +49,25 @@ export default function Header() {
     setSearchOpen(true);
   }
 
+  function closeMobileMenu() {
+    setMobileMenuOpen(false);
+    setOpenMobileGroup(null);
+  }
+
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-neutral-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-border bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 md:gap-6">
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((v) => !v)}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              className="text-neutral-700 transition hover:text-accent md:hidden"
+            >
+              {mobileMenuOpen ? <CloseIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+            </button>
             <Link href="/" className="text-lg font-semibold tracking-wide text-neutral-900">
               ISHUE
             </Link>
@@ -64,14 +80,14 @@ export default function Header() {
                 onFocus={() => setSearchOpen(true)}
                 placeholder="Search products"
                 aria-label="Search products"
-                className="w-40 rounded-full border border-neutral-300 bg-neutral-50 py-2 pl-9 pr-3 text-sm text-neutral-800 transition focus:w-56 focus:border-neutral-500 focus:outline-none lg:w-56"
+                className="w-40 rounded-full border border-border bg-neutral-50 py-2 pl-9 pr-3 text-sm text-neutral-800 transition focus:w-56 focus:border-accent focus:outline-none lg:w-56"
               />
             </form>
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label="Search"
-              className="text-neutral-700 transition hover:text-neutral-900 sm:hidden"
+              className="text-neutral-700 transition hover:text-accent sm:hidden"
             >
               <SearchIcon className="h-5 w-5" />
             </button>
@@ -87,17 +103,28 @@ export default function Header() {
                   {link.label}
                 </Link>
                 {link.subsections && link.subsections.length > 0 && (
-                  <div className="invisible absolute left-1/2 top-full z-50 w-56 -translate-x-1/2 pt-2 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-1 border border-neutral-200 bg-white p-4 shadow-lg">
-                      {link.subsections.map((s) => (
-                        <Link
-                          key={s.href}
-                          href={s.href}
-                          className="py-1 text-sm text-neutral-600 transition hover:text-accent"
-                        >
-                          {s.label}
-                        </Link>
-                      ))}
+                  <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-2 opacity-0 transition delay-150 group-hover:visible group-hover:opacity-100 group-hover:delay-0 group-focus-within:visible group-focus-within:opacity-100">
+                    <div className="border border-border bg-white p-5 shadow-lg">
+                      <Link
+                        href={link.href}
+                        className="mb-3 block text-xs font-semibold uppercase tracking-wide text-neutral-900 hover:text-accent"
+                      >
+                        Shop all {link.label}
+                      </Link>
+                      <p className="mb-2 text-[11px] font-medium uppercase tracking-wide text-muted">
+                        Shop by style
+                      </p>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                        {link.subsections.map((s) => (
+                          <Link
+                            key={s.href}
+                            href={s.href}
+                            className="py-1 text-sm text-neutral-600 transition hover:text-accent"
+                          >
+                            {s.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -130,13 +157,52 @@ export default function Header() {
           </div>
         </div>
 
-        <nav aria-label="Primary mobile" className="flex items-center justify-center gap-6 border-t border-neutral-100 px-4 py-2.5 md:hidden">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="text-xs font-medium text-neutral-700">
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+        {mobileMenuOpen && (
+          <nav aria-label="Primary mobile" className="border-t border-border px-4 pb-4 md:hidden">
+            {navLinks.map((link) => (
+              <div key={link.href} className="border-b border-border py-1 last:border-b-0">
+                {link.subsections && link.subsections.length > 0 ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setOpenMobileGroup((g) => (g === link.href ? null : link.href))}
+                      aria-expanded={openMobileGroup === link.href}
+                      className="flex w-full items-center justify-between py-2.5 text-sm font-medium text-neutral-900"
+                    >
+                      {link.label}
+                      <span className="text-muted">{openMobileGroup === link.href ? "−" : "+"}</span>
+                    </button>
+                    {openMobileGroup === link.href && (
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-2 pb-3">
+                        <Link href={link.href} onClick={closeMobileMenu} className="text-sm text-accent">
+                          Shop all {link.label}
+                        </Link>
+                        {link.subsections.map((s) => (
+                          <Link
+                            key={s.href}
+                            href={s.href}
+                            onClick={closeMobileMenu}
+                            className="text-sm text-neutral-600"
+                          >
+                            {s.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    href={link.href}
+                    onClick={closeMobileMenu}
+                    className="block py-2.5 text-sm font-medium text-neutral-900"
+                  >
+                    {link.label}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </nav>
+        )}
       </header>
       {searchOpen && (
         <SearchOverlay

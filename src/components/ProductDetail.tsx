@@ -75,7 +75,7 @@ export default function ProductDetail({ product }: { product: Product }) {
             <HeartIcon filled={favorited} className="h-6 w-6" />
           </button>
         </div>
-        <p className="mt-2 text-lg text-neutral-700">{formatPrice(product.price, product.currency)}</p>
+        <p className="mt-2 text-lg text-muted">{formatPrice(product.price, product.currency)}</p>
 
         <div className="mt-8">
           <div className="mb-2 flex items-center justify-between">
@@ -92,10 +92,10 @@ export default function ProductDetail({ product }: { product: Product }) {
                   setError(false);
                 }}
                 aria-pressed={size === s}
-                className={`h-11 min-w-11 border px-3 text-sm transition ${
+                className={`h-11 min-w-11 rounded-md border px-3 text-sm transition ${
                   size === s
-                    ? "border-neutral-900 bg-neutral-900 text-white"
-                    : "border-neutral-300 text-neutral-800 hover:border-neutral-900"
+                    ? "border-accent bg-accent text-accent-foreground"
+                    : "border-border text-neutral-800 hover:border-accent"
                 }`}
               >
                 {s}
@@ -108,12 +108,22 @@ export default function ProductDetail({ product }: { product: Product }) {
         <button
           type="button"
           onClick={handleAddToCart}
-          className="mt-6 w-full bg-neutral-900 py-3.5 text-sm font-medium text-white transition hover:bg-neutral-700"
+          className="mt-6 w-full rounded-md bg-accent py-3.5 text-sm font-medium text-accent-foreground transition hover:brightness-95"
         >
           {added ? "Added to bag" : "Add to bag"}
         </button>
 
         <p className="mt-8 text-sm leading-relaxed text-neutral-600">{product.description}</p>
+
+        <details className="mt-8 border-t border-border pt-4 text-sm text-neutral-700">
+          <summary className="cursor-pointer list-none font-medium text-neutral-900">
+            Delivery &amp; returns
+          </summary>
+          <p className="mt-2 leading-relaxed text-muted">
+            Standard delivery in 3–5 business days. Free returns within 30 days of delivery, unworn and with tags
+            attached.
+          </p>
+        </details>
       </div>
     </div>
   );
