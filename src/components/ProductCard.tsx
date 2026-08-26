@@ -5,11 +5,21 @@ import Link from "next/link";
 import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 import { useFavorites } from "@/context/FavoritesContext";
+import { useAuth } from "@/context/AuthContext";
 import { HeartIcon } from "@/components/icons";
 
 export default function ProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { isLoggedIn, promptLogin } = useAuth();
   const favorited = isFavorite(product.slug);
+
+  function handleFavoriteClick() {
+    if (!isLoggedIn) {
+      promptLogin();
+      return;
+    }
+    toggleFavorite(product.slug);
+  }
 
   return (
     <div className="group relative flex w-full flex-col">
@@ -38,7 +48,7 @@ export default function ProductCard({ product, priority = false }: { product: Pr
       </Link>
       <button
         type="button"
-        onClick={() => toggleFavorite(product.slug)}
+        onClick={handleFavoriteClick}
         aria-pressed={favorited}
         aria-label={favorited ? `Remove ${product.name} from favorites` : `Add ${product.name} to favorites`}
         className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-neutral-800 shadow-sm transition hover:bg-white"

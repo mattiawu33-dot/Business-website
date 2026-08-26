@@ -4,10 +4,11 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { useFavorites } from "@/context/FavoritesContext";
+import { useAuth } from "@/context/AuthContext";
 import { products } from "@/data/products";
 import { styleOf } from "@/lib/style";
 import SearchOverlay from "@/components/SearchOverlay";
-import { BagIcon, CloseIcon, HeartIcon, MenuIcon, SearchIcon } from "@/components/icons";
+import { BagIcon, CloseIcon, HeartIcon, MenuIcon, SearchIcon, UserIcon } from "@/components/icons";
 
 type NavLink = {
   label: string;
@@ -30,8 +31,10 @@ export default function Header() {
   const [query, setQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openMobileGroup, setOpenMobileGroup] = useState<string | null>(null);
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const { count, open: openCart } = useCart();
   const { favorites } = useFavorites();
+  const { email, isLoggedIn, logout, promptLogin } = useAuth();
 
   const navLinks: NavLink[] = useMemo(
     () => [
@@ -133,6 +136,43 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-4">
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => (isLoggedIn ? setAccountMenuOpen((v) => !v) : promptLogin())}
+                aria-label={isLoggedIn ? "Account menu" : "Log in"}
+                aria-expanded={isLoggedIn ? accountMenuOpen : undefined}
+                className="flex items-center gap-1.5 text-neutral-700 transition hover:text-accent"
+              >
+                {isLoggedIn ? (
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-neutral-900 text-[11px] font-medium uppercase text-white">
+                    {email?.[0]}
+                  </span>
+                ) : (
+                  <>
+                    <UserIcon className="h-5 w-5" />
+                    <span className="hidden text-sm md:inline">Log in</span>
+                  </>
+                )}
+              </button>
+              {isLoggedIn && accountMenuOpen && (
+                <div className="absolute right-0 top-full z-50 w-48 pt-2">
+                  <div className="border border-border bg-white p-3 shadow-lg">
+                    <p className="truncate px-1 pb-2 text-xs text-muted">{email}</p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        logout();
+                        setAccountMenuOpen(false);
+                      }}
+                      className="w-full rounded px-1 py-1.5 text-left text-sm text-neutral-700 hover:bg-neutral-50 hover:text-accent"
+                    >
+                      Log out
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
             <Link href="/favorites" aria-label="Favorites" className="relative text-neutral-700 transition hover:text-accent">
               <HeartIcon className="h-5 w-5" />
               {favorites.length > 0 && (

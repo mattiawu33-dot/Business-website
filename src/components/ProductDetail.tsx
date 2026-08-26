@@ -6,6 +6,7 @@ import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 import { useCart } from "@/context/CartContext";
 import { useFavorites } from "@/context/FavoritesContext";
+import { useAuth } from "@/context/AuthContext";
 import { HeartIcon } from "@/components/icons";
 
 export default function ProductDetail({ product }: { product: Product }) {
@@ -15,7 +16,16 @@ export default function ProductDetail({ product }: { product: Product }) {
   const [added, setAdded] = useState(false);
   const { addToCart } = useCart();
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { isLoggedIn, promptLogin } = useAuth();
   const favorited = isFavorite(product.slug);
+
+  function handleFavoriteClick() {
+    if (!isLoggedIn) {
+      promptLogin();
+      return;
+    }
+    toggleFavorite(product.slug);
+  }
 
   const handleAddToCart = () => {
     if (!size) {
@@ -67,7 +77,7 @@ export default function ProductDetail({ product }: { product: Product }) {
           <h1 className="text-2xl font-medium text-neutral-900">{product.name}</h1>
           <button
             type="button"
-            onClick={() => toggleFavorite(product.slug)}
+            onClick={handleFavoriteClick}
             aria-pressed={favorited}
             aria-label={favorited ? "Remove from favorites" : "Add to favorites"}
             className="shrink-0 text-neutral-700"
