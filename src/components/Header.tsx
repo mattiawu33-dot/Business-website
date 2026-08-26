@@ -175,7 +175,7 @@ export default function Header() {
             </div>
             <Link href="/favorites" aria-label="Favorites" className="relative text-neutral-700 transition hover:text-accent">
               <HeartIcon className="h-5 w-5" />
-              {favorites.length > 0 && (
+              {isLoggedIn && favorites.length > 0 && (
                 <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] text-accent-foreground">
                   {favorites.length}
                 </span>
