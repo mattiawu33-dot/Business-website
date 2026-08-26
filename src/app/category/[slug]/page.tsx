@@ -27,7 +27,7 @@ export default async function CategoryPage({ params }: PageProps<"/category/[slu
       <h1 className="mt-3 text-2xl font-medium text-neutral-900">{category.label}</h1>
       <p className="mt-1 text-sm text-neutral-500">{category.description}</p>
       <Suspense fallback={null}>
-        <CategoryProductGrid products={products} comingSoonCount={comingSoonCount} />
+        <CategoryProductGrid products={products} comingSoonCount={comingSoonCount} slug={slug} />
       </Suspense>
     </div>
   );

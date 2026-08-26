@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { Product } from "@/lib/types";
 import { styleOf } from "@/lib/style";
+import { colorOf, fitOf, featuresOf } from "@/lib/tags";
 import ProductCard from "@/components/ProductCard";
 import ComingSoonCard from "@/components/ComingSoonCard";
 import CategorySidebarFilters, { PRICE_BANDS } from "@/components/CategorySidebarFilters";
@@ -21,9 +22,11 @@ const SORTS = [
 export default function CategoryProductGrid({
   products,
   comingSoonCount = 0,
+  slug,
 }: {
   products: Product[];
   comingSoonCount?: number;
+  slug?: string;
 }) {
   const searchParams = useSearchParams();
   const styleParam = searchParams.get("style");
@@ -31,6 +34,10 @@ export default function CategoryProductGrid({
   const [size, setSize] = useState("all");
   const [style, setStyle] = useState(styleParam ?? "all");
   const [priceBand, setPriceBand] = useState(0);
+  const [color, setColor] = useState("all");
+  const [fit, setFit] = useState("all");
+  const [feature, setFeature] = useState("all");
+  const [promoOnly, setPromoOnly] = useState(false);
   const [sort, setSort] = useState("featured");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
@@ -38,11 +45,24 @@ export default function CategoryProductGrid({
     () => Array.from(new Set(products.map((p) => styleOf(p.name)))).sort(),
     [products]
   );
+  const colors = useMemo(
+    () => Array.from(new Set(products.map(colorOf).filter((c): c is string => !!c))).sort(),
+    [products]
+  );
+  const fits = useMemo(() => Array.from(new Set(products.map(fitOf))).sort(), [products]);
+  const features = useMemo(
+    () => Array.from(new Set(products.flatMap(featuresOf))).sort(),
+    [products]
+  );
 
   const filtered = useMemo(() => {
     const list = products.filter((p) => {
       if (size !== "all" && !p.sizes.includes(size)) return false;
       if (style !== "all" && styleOf(p.name) !== style) return false;
+      if (color !== "all" && colorOf(p) !== color) return false;
+      if (fit !== "all" && fitOf(p) !== fit) return false;
+      if (feature !== "all" && !featuresOf(p).includes(feature)) return false;
+      if (promoOnly && !p.onPromotion) return false;
       if (!PRICE_BANDS[priceBand].test(p.price)) return false;
       return true;
     });
@@ -51,14 +71,19 @@ export default function CategoryProductGrid({
     else if (sort === "price-desc") sorted.sort((a, b) => b.price - a.price);
     else if (sort === "newest") sorted.sort((a, b) => Number(b.isNew) - Number(a.isNew));
     return sorted;
-  }, [products, size, style, priceBand, sort]);
+  }, [products, size, style, color, fit, feature, promoOnly, priceBand, sort]);
 
-  const filterKey = `${size}|${style}|${priceBand}|${sort}`;
+  const filterKey = `${size}|${style}|${color}|${fit}|${feature}|${promoOnly}|${priceBand}|${sort}`;
 
-  const hasActiveFilters = size !== "all" || style !== "all" || priceBand !== 0;
+  const hasActiveFilters =
+    size !== "all" || style !== "all" || color !== "all" || fit !== "all" || feature !== "all" || promoOnly || priceBand !== 0;
   function clearAll() {
     setSize("all");
     setStyle("all");
+    setColor("all");
+    setFit("all");
+    setFeature("all");
+    setPromoOnly(false);
     setPriceBand(0);
   }
 
@@ -70,6 +95,18 @@ export default function CategoryProductGrid({
     setStyle,
     priceBand,
     setPriceBand,
+    colors,
+    color,
+    setColor,
+    fits,
+    fit,
+    setFit,
+    features,
+    feature,
+    setFeature,
+    promoOnly,
+    setPromoOnly,
+    showPromoToggle: slug !== "promotion",
     hasActiveFilters,
     onClearAll: clearAll,
   };
