@@ -25,7 +25,6 @@ export default function Footer() {
           <h3 className="mb-3 text-sm font-medium text-neutral-900">{t("footer.helpHeader")}</h3>
           <ul className="flex flex-col gap-2 text-sm text-neutral-600">
             <li><Link href="/about" className="hover:text-neutral-900">{t("footer.about")}</Link></li>
-            <li><span className="text-neutral-400">{t("footer.shippingReturns")}</span></li>
             <li><span className="text-neutral-400">{t("footer.sizeGuide")}</span></li>
             <li><span className="text-neutral-400">{t("footer.contact")}</span></li>
           </ul>
