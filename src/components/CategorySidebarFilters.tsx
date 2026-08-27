@@ -1,12 +1,17 @@
+"use client";
+
+import { useLocale } from "@/context/LocaleContext";
+import { translateTag, type Locale } from "@/lib/i18n/dictionary";
+
 const SIZES = ["XS", "S", "M", "L", "XL"];
 
-export type PriceBand = { label: string; test: (p: number) => boolean };
+export type PriceBand = { labelKey: "filters.priceAll" | "filters.priceUnder75" | "filters.price75to150" | "filters.priceOver150"; test: (p: number) => boolean };
 
 export const PRICE_BANDS: PriceBand[] = [
-  { label: "All prices", test: () => true },
-  { label: "Under €75", test: (p) => p < 75 },
-  { label: "€75 – €150", test: (p) => p >= 75 && p <= 150 },
-  { label: "Over €150", test: (p) => p > 150 },
+  { labelKey: "filters.priceAll", test: () => true },
+  { labelKey: "filters.priceUnder75", test: (p) => p < 75 },
+  { labelKey: "filters.price75to150", test: (p) => p >= 75 && p <= 150 },
+  { labelKey: "filters.priceOver150", test: (p) => p > 150 },
 ];
 
 export const COLOR_SWATCHES: Record<string, string> = {
@@ -52,6 +57,8 @@ function RadioGroup({
   value,
   onChange,
   swatches,
+  tagKind,
+  locale,
 }: {
   title: string;
   allLabel: string;
@@ -59,6 +66,8 @@ function RadioGroup({
   value: string;
   onChange: (v: string) => void;
   swatches?: Record<string, string>;
+  tagKind?: "style" | "color" | "fit" | "feature";
+  locale: Locale;
 }) {
   if (options.length === 0) return null;
   return (
@@ -90,7 +99,7 @@ function RadioGroup({
                 aria-hidden
               />
             )}
-            {o}
+            {tagKind ? translateTag(tagKind, o, locale) : o}
           </label>
         ))}
       </div>
@@ -143,17 +152,19 @@ export default function CategorySidebarFilters({
   hasActiveFilters: boolean;
   onClearAll: () => void;
 }) {
+  const { locale, t } = useLocale();
+
   return (
     <div className="flex flex-col gap-6 [&>details:last-of-type]:border-b-0 [&>details:last-of-type]:pb-0">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-900">Filters</h2>
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-900">{t("filters.title")}</h2>
         <button
           type="button"
           onClick={onClearAll}
           disabled={!hasActiveFilters}
           className="text-xs underline underline-offset-2 text-accent disabled:text-muted disabled:no-underline"
         >
-          Clear all
+          {t("filters.clearAll")}
         </button>
       </div>
 
@@ -165,14 +176,14 @@ export default function CategorySidebarFilters({
             onChange={(e) => setPromoOnly(e.target.checked)}
             className="h-4 w-4 accent-[var(--accent)]"
           />
-          Only show promotions
+          {t("filters.promoOnly")}
         </label>
       )}
 
-      <FilterDetails title="Price">
+      <FilterDetails title={t("filters.price")}>
         <div className="flex flex-col gap-2">
           {PRICE_BANDS.map((band, i) => (
-            <label key={band.label} className="flex items-center gap-2 text-sm text-neutral-700">
+            <label key={band.labelKey} className="flex items-center gap-2 text-sm text-neutral-700">
               <input
                 type="radio"
                 name="price-band"
@@ -180,27 +191,53 @@ export default function CategorySidebarFilters({
                 onChange={() => setPriceBand(i)}
                 className="h-4 w-4 accent-[var(--accent)]"
               />
-              {band.label}
+              {t(band.labelKey)}
             </label>
           ))}
         </div>
       </FilterDetails>
 
-      <RadioGroup title="Type" allLabel="All types" options={styles} value={style} onChange={setStyle} />
       <RadioGroup
-        title="Color"
-        allLabel="All colors"
+        title={t("filters.type")}
+        allLabel={t("filters.typeAll")}
+        options={styles}
+        value={style}
+        onChange={setStyle}
+        tagKind="style"
+        locale={locale}
+      />
+      <RadioGroup
+        title={t("filters.color")}
+        allLabel={t("filters.colorAll")}
         options={colors}
         value={color}
         onChange={setColor}
         swatches={COLOR_SWATCHES}
+        tagKind="color"
+        locale={locale}
       />
       {fits.length > 1 && (
-        <RadioGroup title="Fit" allLabel="All fits" options={fits} value={fit} onChange={setFit} />
+        <RadioGroup
+          title={t("filters.fit")}
+          allLabel={t("filters.fitAll")}
+          options={fits}
+          value={fit}
+          onChange={setFit}
+          tagKind="fit"
+          locale={locale}
+        />
       )}
-      <RadioGroup title="Features" allLabel="All features" options={features} value={feature} onChange={setFeature} />
+      <RadioGroup
+        title={t("filters.features")}
+        allLabel={t("filters.featuresAll")}
+        options={features}
+        value={feature}
+        onChange={setFeature}
+        tagKind="feature"
+        locale={locale}
+      />
 
-      <FilterDetails title="Size">
+      <FilterDetails title={t("filters.size")}>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
@@ -210,7 +247,7 @@ export default function CategorySidebarFilters({
               size === "all" ? "border-accent bg-accent text-accent-foreground" : "border-border text-neutral-700"
             }`}
           >
-            All
+            {t("filters.sizeAll")}
           </button>
           {SIZES.map((s) => (
             <button

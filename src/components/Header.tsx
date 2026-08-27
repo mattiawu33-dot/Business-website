@@ -4,15 +4,18 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useFavorites } from "@/context/FavoritesContext";
 import { useAuth } from "@/context/AuthContext";
+import { useLocale } from "@/context/LocaleContext";
 import { products } from "@/data/products";
 import { styleOf } from "@/lib/style";
+import { translateTag, type DictKey } from "@/lib/i18n/dictionary";
 import SearchOverlay from "@/components/SearchOverlay";
+import LanguageToggle from "@/components/LanguageToggle";
 import { CloseIcon, HeartIcon, MenuIcon, SearchIcon, UserIcon } from "@/components/icons";
 
 type NavLink = {
-  label: string;
+  labelKey: DictKey;
   href: string;
-  subsections?: { label: string; href: string }[];
+  subsections?: { style: string; href: string }[];
 };
 
 function subsectionsFor(category: "men" | "women") {
@@ -20,7 +23,7 @@ function subsectionsFor(category: "men" | "women") {
   return Array.from(new Set(names))
     .sort()
     .map((style) => ({
-      label: style,
+      style,
       href: `/category/${category}?style=${encodeURIComponent(style)}`,
     }));
 }
@@ -33,13 +36,14 @@ export default function Header() {
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const { favorites } = useFavorites();
   const { email, isLoggedIn, logout, promptLogin } = useAuth();
+  const { locale, t } = useLocale();
 
   const navLinks: NavLink[] = useMemo(
     () => [
-      { label: "Men", href: "/category/men", subsections: subsectionsFor("men") },
-      { label: "Women", href: "/category/women", subsections: subsectionsFor("women") },
-      { label: "Promotion", href: "/category/promotion" },
-      { label: "Kids", href: "/category/kids" },
+      { labelKey: "nav.men", href: "/category/men", subsections: subsectionsFor("men") },
+      { labelKey: "nav.women", href: "/category/women", subsections: subsectionsFor("women") },
+      { labelKey: "nav.promotion", href: "/category/promotion" },
+      { labelKey: "nav.kids", href: "/category/kids" },
     ],
     []
   );
@@ -63,7 +67,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((v) => !v)}
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-label={mobileMenuOpen ? t("header.closeMenu") : t("header.openMenu")}
               aria-expanded={mobileMenuOpen}
               className="text-neutral-700 transition hover:text-accent md:hidden"
             >
@@ -79,15 +83,15 @@ export default function Header() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onFocus={() => setSearchOpen(true)}
-                placeholder="Search products"
-                aria-label="Search products"
+                placeholder={t("header.searchPlaceholder")}
+                aria-label={t("header.searchPlaceholder")}
                 className="w-40 rounded-full border border-border bg-neutral-50 py-2 pl-9 pr-3 text-sm text-neutral-800 transition focus:w-56 focus:border-accent focus:outline-none lg:w-56"
               />
             </form>
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              aria-label="Search"
+              aria-label={t("search.title")}
               className="text-neutral-700 transition hover:text-accent sm:hidden"
             >
               <SearchIcon className="h-5 w-5" />
@@ -101,7 +105,7 @@ export default function Header() {
                   href={link.href}
                   className="block px-3 py-2 text-sm font-medium text-neutral-800 transition hover:text-accent"
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </Link>
                 {link.subsections && link.subsections.length > 0 && (
                   <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-2 opacity-0 transition delay-150 group-hover:visible group-hover:opacity-100 group-hover:delay-0 group-focus-within:visible group-focus-within:opacity-100">
@@ -110,10 +114,10 @@ export default function Header() {
                         href={link.href}
                         className="mb-3 block text-xs font-semibold uppercase tracking-wide text-neutral-900 hover:text-accent"
                       >
-                        Shop all {link.label}
+                        {t("header.shopAll", { category: t(link.labelKey) })}
                       </Link>
                       <p className="mb-2 text-[11px] font-medium uppercase tracking-wide text-muted">
-                        Shop by style
+                        {t("header.shopByStyle")}
                       </p>
                       <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                         {link.subsections.map((s) => (
@@ -122,7 +126,7 @@ export default function Header() {
                             href={s.href}
                             className="py-1 text-sm text-neutral-600 transition hover:text-accent"
                           >
-                            {s.label}
+                            {translateTag("style", s.style, locale)}
                           </Link>
                         ))}
                       </div>
@@ -134,11 +138,12 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-4">
+            <LanguageToggle />
             <div className="relative">
               <button
                 type="button"
                 onClick={() => (isLoggedIn ? setAccountMenuOpen((v) => !v) : promptLogin())}
-                aria-label={isLoggedIn ? "Account menu" : "Log in"}
+                aria-label={isLoggedIn ? t("header.accountMenu") : t("header.logIn")}
                 aria-expanded={isLoggedIn ? accountMenuOpen : undefined}
                 className="flex items-center gap-1.5 text-neutral-700 transition hover:text-accent"
               >
@@ -149,7 +154,7 @@ export default function Header() {
                 ) : (
                   <>
                     <UserIcon className="h-5 w-5" />
-                    <span className="hidden text-sm md:inline">Log in</span>
+                    <span className="hidden text-sm md:inline">{t("header.logIn")}</span>
                   </>
                 )}
               </button>
@@ -165,13 +170,17 @@ export default function Header() {
                       }}
                       className="w-full rounded px-1 py-1.5 text-left text-sm text-neutral-700 hover:bg-neutral-50 hover:text-accent"
                     >
-                      Log out
+                      {t("header.logOut")}
                     </button>
                   </div>
                 </div>
               )}
             </div>
-            <Link href="/favorites" aria-label="Favorites" className="relative text-neutral-700 transition hover:text-accent">
+            <Link
+              href="/favorites"
+              aria-label={t("header.favorites")}
+              className="relative text-neutral-700 transition hover:text-accent"
+            >
               <HeartIcon className="h-5 w-5" />
               {isLoggedIn && favorites.length > 0 && (
                 <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] text-accent-foreground">
@@ -194,13 +203,13 @@ export default function Header() {
                       aria-expanded={openMobileGroup === link.href}
                       className="flex w-full items-center justify-between py-2.5 text-sm font-medium text-neutral-900"
                     >
-                      {link.label}
+                      {t(link.labelKey)}
                       <span className="text-muted">{openMobileGroup === link.href ? "−" : "+"}</span>
                     </button>
                     {openMobileGroup === link.href && (
                       <div className="grid grid-cols-2 gap-x-4 gap-y-2 pb-3">
                         <Link href={link.href} onClick={closeMobileMenu} className="text-sm text-accent">
-                          Shop all {link.label}
+                          {t("header.shopAll", { category: t(link.labelKey) })}
                         </Link>
                         {link.subsections.map((s) => (
                           <Link
@@ -209,7 +218,7 @@ export default function Header() {
                             onClick={closeMobileMenu}
                             className="text-sm text-neutral-600"
                           >
-                            {s.label}
+                            {translateTag("style", s.style, locale)}
                           </Link>
                         ))}
                       </div>
@@ -221,7 +230,7 @@ export default function Header() {
                     onClick={closeMobileMenu}
                     className="block py-2.5 text-sm font-medium text-neutral-900"
                   >
-                    {link.label}
+                    {t(link.labelKey)}
                   </Link>
                 )}
               </div>

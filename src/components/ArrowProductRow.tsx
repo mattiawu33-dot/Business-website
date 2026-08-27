@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import type { Product } from "@/lib/types";
+import { useLocale } from "@/context/LocaleContext";
 import ProductCard from "@/components/ProductCard";
 import { ChevronRightIcon } from "@/components/icons";
 
@@ -16,6 +17,7 @@ export default function ArrowProductRow({
   products: Product[];
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const { t } = useLocale();
 
   function scrollBy(direction: 1 | -1) {
     const track = trackRef.current;
@@ -32,14 +34,14 @@ export default function ArrowProductRow({
         <div className="flex items-center gap-3">
           {viewAllHref && (
             <Link href={viewAllHref} className="text-sm text-neutral-500 hover:text-accent">
-              View all
+              {t("arrow.viewAll")}
             </Link>
           )}
           <div className="hidden items-center gap-1 sm:flex">
             <button
               type="button"
               onClick={() => scrollBy(-1)}
-              aria-label={`Scroll ${title} left`}
+              aria-label={t("arrow.scrollLeft", { title })}
               className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-300 text-neutral-600 transition hover:border-accent hover:text-accent"
             >
               <ChevronRightIcon className="h-4 w-4 rotate-180" />
@@ -47,7 +49,7 @@ export default function ArrowProductRow({
             <button
               type="button"
               onClick={() => scrollBy(1)}
-              aria-label={`Scroll ${title} right`}
+              aria-label={t("arrow.scrollRight", { title })}
               className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-300 text-neutral-600 transition hover:border-accent hover:text-accent"
             >
               <ChevronRightIcon className="h-4 w-4" />

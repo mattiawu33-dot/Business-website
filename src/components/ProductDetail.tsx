@@ -6,6 +6,7 @@ import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 import { useFavorites } from "@/context/FavoritesContext";
 import { useAuth } from "@/context/AuthContext";
+import { useLocale } from "@/context/LocaleContext";
 import { HeartIcon } from "@/components/icons";
 import ContactButton from "@/components/ContactButton";
 
@@ -14,6 +15,7 @@ export default function ProductDetail({ product }: { product: Product }) {
   const [size, setSize] = useState<string | null>(null);
   const { isFavorite, toggleFavorite } = useFavorites();
   const { isLoggedIn, promptLogin } = useAuth();
+  const { locale, t } = useLocale();
   const favorited = isFavorite(product.slug);
 
   function handleFavoriteClick() {
@@ -45,7 +47,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                 key={img}
                 type="button"
                 onClick={() => setActiveImage(i)}
-                aria-label={`Show image ${i + 1}`}
+                aria-label={t("pdp.showImage", { n: i + 1 })}
                 aria-current={activeImage === i}
                 className={`relative aspect-[2/3] w-16 overflow-hidden bg-neutral-100 ring-1 ${
                   activeImage === i ? "ring-neutral-900" : "ring-transparent"
@@ -70,7 +72,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                   : "bg-neutral-900 text-white"
             }`}
           >
-            {product.isNew ? "New" : product.isBestSeller ? "Best Seller" : "Back in Stock"}
+            {product.isNew ? t("badge.new") : product.isBestSeller ? t("badge.bestSeller") : t("badge.backInStock")}
           </span>
         )}
         <div className="flex items-start justify-between gap-4">
@@ -79,18 +81,18 @@ export default function ProductDetail({ product }: { product: Product }) {
             type="button"
             onClick={handleFavoriteClick}
             aria-pressed={favorited}
-            aria-label={favorited ? "Remove from favorites" : "Add to favorites"}
+            aria-label={t(favorited ? "fav.remove" : "fav.add")}
             className="shrink-0 text-neutral-700"
           >
             <HeartIcon filled={favorited} className="h-6 w-6" />
           </button>
         </div>
-        <p className="mt-2 text-lg text-muted">{formatPrice(product.price, product.currency)}</p>
+        <p className="mt-2 text-lg text-muted">{formatPrice(product.price, product.currency, locale)}</p>
 
         <div className="mt-8">
           <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-neutral-900">Size</span>
-            <span className="text-xs text-neutral-400">Size guide</span>
+            <span className="text-sm font-medium text-neutral-900">{t("pdp.size")}</span>
+            <span className="text-xs text-neutral-400">{t("pdp.sizeGuide")}</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {product.sizes.map((s) => (

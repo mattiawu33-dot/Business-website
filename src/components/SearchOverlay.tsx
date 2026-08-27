@@ -6,6 +6,8 @@ import Link from "next/link";
 import { products } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { styleOf } from "@/lib/style";
+import { translateTag } from "@/lib/i18n/dictionary";
+import { useLocale } from "@/context/LocaleContext";
 import { CloseIcon, SearchIcon } from "@/components/icons";
 
 const SUGGESTED_TERMS = (() => {
@@ -44,6 +46,7 @@ export default function SearchOverlay({
 }) {
   const [query, setQuery] = useState(initialQuery);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { locale, t } = useLocale();
 
   useEffect(() => {
     requestAnimationFrame(() => inputRef.current?.focus());
@@ -68,7 +71,7 @@ export default function SearchOverlay({
       className="fixed inset-0 z-50 bg-black/30"
       role="dialog"
       aria-modal="true"
-      aria-label="Search"
+      aria-label={t("search.title")}
       onClick={onClose}
     >
       <div className="mx-auto max-w-2xl bg-white px-4 pt-6 shadow-lg sm:px-6" onClick={(e) => e.stopPropagation()}>
@@ -79,18 +82,20 @@ export default function SearchOverlay({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             type="text"
-            placeholder="Search products"
-            aria-label="Search products"
+            placeholder={t("search.placeholder")}
+            aria-label={t("search.placeholder")}
             className="w-full text-base outline-none placeholder:text-neutral-400"
           />
-          <button type="button" onClick={onClose} aria-label="Close search" className="text-neutral-500">
+          <button type="button" onClick={onClose} aria-label={t("search.closeAria")} className="text-neutral-500">
             <CloseIcon className="h-5 w-5" />
           </button>
         </div>
         <div className="max-h-[70vh] overflow-y-auto py-4">
           {!q && (
             <div className="px-2">
-              <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted">Popular searches</p>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted">
+                {t("search.popularSearches")}
+              </p>
               <div className="flex flex-wrap gap-2">
                 {SUGGESTED_TERMS.map((term) => (
                   <button
@@ -99,7 +104,7 @@ export default function SearchOverlay({
                     onClick={() => setQuery(term)}
                     className="rounded-full border border-border px-3 py-1.5 text-sm text-neutral-700 transition hover:border-accent hover:text-accent"
                   >
-                    {term}
+                    {translateTag("style", term[0].toUpperCase() + term.slice(1), locale)}
                   </button>
                 ))}
               </div>
@@ -107,8 +112,11 @@ export default function SearchOverlay({
           )}
           {q && results.length === 0 && (
             <p className="px-2 py-8 text-center text-sm text-muted">
-              No matches for &ldquo;{query}&rdquo; — try &ldquo;{SUGGESTED_TERMS[0]}&rdquo; or &ldquo;
-              {SUGGESTED_TERMS[1]}&rdquo;.
+              {t("search.noMatches", {
+                query,
+                term1: translateTag("style", SUGGESTED_TERMS[0][0].toUpperCase() + SUGGESTED_TERMS[0].slice(1), locale),
+                term2: translateTag("style", SUGGESTED_TERMS[1][0].toUpperCase() + SUGGESTED_TERMS[1].slice(1), locale),
+              })}
             </p>
           )}
           <ul className="flex flex-col gap-1">

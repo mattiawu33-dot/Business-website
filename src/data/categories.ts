@@ -1,4 +1,31 @@
 import type { CategorySlug } from "@/lib/types";
+import type { DictKey } from "@/lib/i18n/dictionary";
+
+const NAV_KEY: Record<CategorySlug, DictKey> = {
+  men: "nav.men",
+  women: "nav.women",
+  promotion: "nav.promotion",
+  kids: "nav.kids",
+  new: "nav.new",
+  "best-sellers": "nav.bestSellers",
+};
+
+const DESC_KEY: Record<CategorySlug, DictKey> = {
+  men: "category.men.desc",
+  women: "category.women.desc",
+  promotion: "category.promotion.desc",
+  kids: "category.kids.desc",
+  new: "category.new.desc",
+  "best-sellers": "category.bestSellers.desc",
+};
+
+export function categoryLabelKey(slug: CategorySlug): DictKey {
+  return NAV_KEY[slug];
+}
+
+export function categoryDescriptionKey(slug: CategorySlug): DictKey {
+  return DESC_KEY[slug];
+}
 
 export type CategoryMeta = {
   slug: CategorySlug;

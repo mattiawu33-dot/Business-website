@@ -6,11 +6,13 @@ import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 import { useFavorites } from "@/context/FavoritesContext";
 import { useAuth } from "@/context/AuthContext";
+import { useLocale } from "@/context/LocaleContext";
 import { HeartIcon } from "@/components/icons";
 
 export default function ProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
   const { isFavorite, toggleFavorite } = useFavorites();
   const { isLoggedIn, promptLogin } = useAuth();
+  const { locale, t } = useLocale();
   const favorited = isFavorite(product.slug);
 
   function handleFavoriteClick() {
@@ -43,7 +45,7 @@ export default function ProductCard({ product, priority = false }: { product: Pr
                     : "bg-neutral-900 text-white"
               }`}
             >
-              {product.isNew ? "New" : product.isBestSeller ? "Best Seller" : "Back in Stock"}
+              {product.isNew ? t("badge.new") : product.isBestSeller ? t("badge.bestSeller") : t("badge.backInStock")}
             </span>
           )}
         </div>
@@ -52,14 +54,14 @@ export default function ProductCard({ product, priority = false }: { product: Pr
         type="button"
         onClick={handleFavoriteClick}
         aria-pressed={favorited}
-        aria-label={favorited ? `Remove ${product.name} from favorites` : `Add ${product.name} to favorites`}
+        aria-label={t(favorited ? "fav.removeCard" : "fav.addCard", { name: product.name })}
         className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-neutral-800 shadow-sm transition hover:bg-white"
       >
         <HeartIcon filled={favorited} className="h-4 w-4" />
       </button>
       <Link href={`/product/${product.slug}`} className="mt-3 flex flex-col gap-0.5">
         <span className="text-sm text-neutral-800">{product.name}</span>
-        <span className="text-sm text-muted">{formatPrice(product.price, product.currency)}</span>
+        <span className="text-sm text-muted">{formatPrice(product.price, product.currency, locale)}</span>
       </Link>
     </div>
   );

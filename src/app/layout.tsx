@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { FavoritesProvider } from "@/context/FavoritesContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { LocaleProvider } from "@/context/LocaleContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AuthModal from "@/components/AuthModal";
@@ -25,18 +26,20 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="it"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
-        <AuthProvider>
-          <FavoritesProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <AuthModal />
-          </FavoritesProvider>
-        </AuthProvider>
+        <LocaleProvider>
+          <AuthProvider>
+            <FavoritesProvider>
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <AuthModal />
+            </FavoritesProvider>
+          </AuthProvider>
+        </LocaleProvider>
       </body>
     </html>
   );
