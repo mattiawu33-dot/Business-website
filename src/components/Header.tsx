@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useFavorites } from "@/context/FavoritesContext";
 import { useAuth } from "@/context/AuthContext";
@@ -140,11 +141,15 @@ export default function Header() {
           </div>
 
           {/* Center: logo — the visual anchor of the nav. */}
-          <Link
-            href="/"
-            className="justify-self-center text-xl font-semibold tracking-wide text-neutral-900 sm:text-2xl"
-          >
-            ISHUE
+          <Link href="/" aria-label="Ishué" className="justify-self-center">
+            <Image
+              src="/images/brand/logo.png"
+              alt="Ishué"
+              width={447}
+              height={447}
+              priority
+              className="h-10 w-10 object-contain sm:h-12 sm:w-12"
+            />
           </Link>
 
           {/* Right: store locator, language toggle, account, favorites. */}
