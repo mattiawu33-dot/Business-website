@@ -15,13 +15,21 @@ const it = {
   "header.shopAll": "Vedi tutto {category}",
   "header.shopByStyle": "Scopri per stile",
   "header.language": "Lingua",
+  "header.storeLocator": "Trova un negozio",
 
   "nav.men": "Uomo",
   "nav.women": "Donna",
   "nav.promotion": "Promozioni",
   "nav.kids": "Bambini",
   "nav.new": "Novità",
+  "nav.newArrivals": "Nuovi Arrivi",
   "nav.bestSellers": "Più venduti",
+
+  "stores.title": "I nostri negozi",
+  "stores.subtext":
+    "Un piccolo esempio di posizioni per revisionare il layout — l'elenco completo e confermato arriverà in un prossimo aggiornamento.",
+  "stores.hoursWeekday": "Lun–Sab 10:00–19:30",
+  "stores.hoursSunday": "Dom 11:00–18:00",
 
   "category.men.desc": "Stili a rotazione rapida per tutti i giorni, a un prezzo che tiene il passo.",
   "category.women.desc": "Un'ampia gamma di stili per ogni occasione, a un prezzo che ti permette di comprare spesso.",
@@ -177,13 +185,21 @@ const en: Record<DictKey, string> = {
   "header.shopAll": "Shop all {category}",
   "header.shopByStyle": "Shop by style",
   "header.language": "Language",
+  "header.storeLocator": "Find a store",
 
   "nav.men": "Men",
   "nav.women": "Women",
   "nav.promotion": "Promotion",
   "nav.kids": "Kids",
   "nav.new": "New",
+  "nav.newArrivals": "New Arrivals",
   "nav.bestSellers": "Best Sellers",
+
+  "stores.title": "Our Stores",
+  "stores.subtext":
+    "A small sample of locations so the layout can be reviewed — the full, confirmed list will follow in an upcoming round.",
+  "stores.hoursWeekday": "Mon–Sat 10:00–19:30",
+  "stores.hoursSunday": "Sun 11:00–18:00",
 
   "category.men.desc": "Fast-turnover styles for everyday wear, priced to keep up with your rotation.",
   "category.women.desc": "A wide range of styles for every occasion, at a price that lets you shop often.",

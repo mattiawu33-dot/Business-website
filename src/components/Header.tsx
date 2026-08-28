@@ -10,7 +10,7 @@ import { styleOf } from "@/lib/style";
 import { translateTag, type DictKey } from "@/lib/i18n/dictionary";
 import SearchOverlay from "@/components/SearchOverlay";
 import LanguageToggle from "@/components/LanguageToggle";
-import { CloseIcon, HeartIcon, MenuIcon, SearchIcon, UserIcon } from "@/components/icons";
+import { CloseIcon, HeartIcon, MapPinIcon, MenuIcon, SearchIcon, UserIcon } from "@/components/icons";
 
 type NavLink = {
   labelKey: DictKey;
@@ -38,12 +38,15 @@ export default function Header() {
   const { email, isLoggedIn, logout, promptLogin } = useAuth();
   const { locale, t } = useLocale();
 
+  // Order and membership per Round 12's nav layout reference: Men / Women /
+  // Kids / Promotion / New Arrivals.
   const navLinks: NavLink[] = useMemo(
     () => [
       { labelKey: "nav.men", href: "/category/men", subsections: subsectionsFor("men") },
       { labelKey: "nav.women", href: "/category/women", subsections: subsectionsFor("women") },
-      { labelKey: "nav.promotion", href: "/category/promotion" },
       { labelKey: "nav.kids", href: "/category/kids" },
+      { labelKey: "nav.promotion", href: "/category/promotion" },
+      { labelKey: "nav.newArrivals", href: "/category/new" },
     ],
     []
   );
@@ -62,7 +65,9 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-border bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-6xl grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-4 sm:gap-4 sm:px-6 lg:px-8">
+          {/* Left: search, then category nav — the visual anchor is the
+              centered logo, per Round 12's nav layout. */}
           <div className="flex items-center gap-3 md:gap-6">
             <button
               type="button"
@@ -73,9 +78,6 @@ export default function Header() {
             >
               {mobileMenuOpen ? <CloseIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
             </button>
-            <Link href="/" className="text-lg font-semibold tracking-wide text-neutral-900">
-              ISHUE
-            </Link>
             <form onSubmit={submitSearch} className="relative hidden sm:block">
               <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
               <input
@@ -85,7 +87,7 @@ export default function Header() {
                 onFocus={() => setSearchOpen(true)}
                 placeholder={t("header.searchPlaceholder")}
                 aria-label={t("header.searchPlaceholder")}
-                className="w-40 rounded-full border border-border bg-neutral-50 py-2 pl-9 pr-3 text-sm text-neutral-800 transition focus:w-56 focus:border-accent focus:outline-none lg:w-56"
+                className="w-36 rounded-full border border-border bg-neutral-50 py-2 pl-9 pr-3 text-sm text-neutral-800 transition focus:w-52 focus:border-accent focus:outline-none lg:w-48"
               />
             </form>
             <button
@@ -96,48 +98,64 @@ export default function Header() {
             >
               <SearchIcon className="h-5 w-5" />
             </button>
-          </div>
 
-          <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
-            {navLinks.map((link) => (
-              <div key={link.href} className="group relative">
-                <Link
-                  href={link.href}
-                  className="block px-3 py-2 text-sm font-medium text-neutral-800 transition hover:text-accent"
-                >
-                  {t(link.labelKey)}
-                </Link>
-                {link.subsections && link.subsections.length > 0 && (
-                  <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-2 opacity-0 transition delay-150 group-hover:visible group-hover:opacity-100 group-hover:delay-0 group-focus-within:visible group-focus-within:opacity-100">
-                    <div className="border border-border bg-white p-5 shadow-lg">
-                      <Link
-                        href={link.href}
-                        className="mb-3 block text-xs font-semibold uppercase tracking-wide text-neutral-900 hover:text-accent"
-                      >
-                        {t("header.shopAll", { category: t(link.labelKey) })}
-                      </Link>
-                      <p className="mb-2 text-[11px] font-medium uppercase tracking-wide text-muted">
-                        {t("header.shopByStyle")}
-                      </p>
-                      <div className="grid grid-cols-2 gap-x-4 gap-y-1">
-                        {link.subsections.map((s) => (
-                          <Link
-                            key={s.href}
-                            href={s.href}
-                            className="py-1 text-sm text-neutral-600 transition hover:text-accent"
-                          >
-                            {translateTag("style", s.style, locale)}
-                          </Link>
-                        ))}
+            <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+              {navLinks.map((link) => (
+                <div key={link.href} className="group relative">
+                  <Link
+                    href={link.href}
+                    className="block px-2.5 py-2 text-sm font-medium text-neutral-800 transition hover:text-accent lg:px-3"
+                  >
+                    {t(link.labelKey)}
+                  </Link>
+                  {link.subsections && link.subsections.length > 0 && (
+                    <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-2 opacity-0 transition delay-150 group-hover:visible group-hover:opacity-100 group-hover:delay-0 group-focus-within:visible group-focus-within:opacity-100">
+                      <div className="border border-border bg-white p-5 shadow-lg">
+                        <Link
+                          href={link.href}
+                          className="mb-3 block text-xs font-semibold uppercase tracking-wide text-neutral-900 hover:text-accent"
+                        >
+                          {t("header.shopAll", { category: t(link.labelKey) })}
+                        </Link>
+                        <p className="mb-2 text-[11px] font-medium uppercase tracking-wide text-muted">
+                          {t("header.shopByStyle")}
+                        </p>
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                          {link.subsections.map((s) => (
+                            <Link
+                              key={s.href}
+                              href={s.href}
+                              className="py-1 text-sm text-neutral-600 transition hover:text-accent"
+                            >
+                              {translateTag("style", s.style, locale)}
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </nav>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </div>
 
-          <div className="flex items-center gap-4">
+          {/* Center: logo — the visual anchor of the nav. */}
+          <Link
+            href="/"
+            className="justify-self-center text-xl font-semibold tracking-wide text-neutral-900 sm:text-2xl"
+          >
+            ISHUE
+          </Link>
+
+          {/* Right: store locator, language toggle, account, favorites. */}
+          <div className="flex items-center justify-self-end gap-3 sm:gap-4">
+            <Link
+              href="/stores"
+              aria-label={t("header.storeLocator")}
+              className="text-neutral-700 transition hover:text-accent"
+            >
+              <MapPinIcon className="h-5 w-5" />
+            </Link>
             <LanguageToggle />
             <div className="relative">
               <button
