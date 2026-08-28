@@ -37,18 +37,22 @@ export default function ProductCard({ product, priority = false }: { product: Pr
           />
           {/* Quick view: on hover, crossfade to the second photo (if any)
               and reveal a size preview — a peek at the product without
-              leaving the grid. Hover-only, so it degrades to a plain tap
-              through to the PDP on touch. */}
+              leaving the grid. Purely informational (pointer-events-none)
+              so it can never intercept the click — the card's default click
+              behavior is always full navigation to the PDP, on every input
+              type; hover is the only thing that reveals this overlay, and
+              hover doesn't stick on touch, so it degrades to a plain tap
+              through to the PDP there too. */}
           {product.images.length > 1 && (
             <Image
               src={product.images[1]}
               alt=""
               fill
               sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
-              className="product-photo object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              className="product-photo pointer-events-none object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             />
           )}
-          <div className="absolute inset-x-0 bottom-0 translate-y-full bg-white/95 px-2.5 py-2 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-white/95 px-2.5 py-2 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
             <p className="mb-1 text-[10px] uppercase tracking-wide text-muted">{t("pdp.size")}</p>
             <div className="flex flex-wrap gap-1">
               {product.sizes.map((s) => (
