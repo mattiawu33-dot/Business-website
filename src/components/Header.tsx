@@ -91,7 +91,14 @@ export default function Header() {
                   >
                     {t("footer.instagram")}
                   </a>
-                  <span className="block py-1 text-sm text-neutral-400">{t("footer.facebook")}</span>
+                  <a
+                    href="https://www.facebook.com/Ishuemoda/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block py-1 text-sm text-neutral-700 hover:text-accent"
+                  >
+                    {t("footer.facebook")}
+                  </a>
                   <span className="block py-1 text-sm text-neutral-400">{t("footer.tiktok")}</span>
                 </div>
               </div>
@@ -256,7 +263,14 @@ export default function Header() {
               >
                 {t("footer.instagram")}
               </a>
-              <span className="text-sm text-neutral-400">{t("footer.facebook")}</span>
+              <a
+                href="https://www.facebook.com/Ishuemoda/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-neutral-700"
+              >
+                {t("footer.facebook")}
+              </a>
               <span className="text-sm text-neutral-400">{t("footer.tiktok")}</span>
             </div>
             {navLinks.map((link) => (
