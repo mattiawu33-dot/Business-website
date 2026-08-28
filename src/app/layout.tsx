@@ -4,9 +4,11 @@ import "./globals.css";
 import { FavoritesProvider } from "@/context/FavoritesContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { LocaleProvider } from "@/context/LocaleContext";
+import { RecentlyViewedProvider } from "@/context/RecentlyViewedContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AuthModal from "@/components/AuthModal";
+import BackToTop from "@/components/BackToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,10 +35,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <LocaleProvider>
           <AuthProvider>
             <FavoritesProvider>
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-              <AuthModal />
+              <RecentlyViewedProvider>
+                <Header />
+                <main className="flex-1">{children}</main>
+                <Footer />
+                <AuthModal />
+                <BackToTop />
+              </RecentlyViewedProvider>
             </FavoritesProvider>
           </AuthProvider>
         </LocaleProvider>

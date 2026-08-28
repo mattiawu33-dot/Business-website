@@ -8,6 +8,8 @@ import StyleSelector from "@/components/StyleSelector";
 import BrandStrip from "@/components/BrandStrip";
 import PromoSection from "@/components/PromoSection";
 import ShopTheLook from "@/components/ShopTheLook";
+import RecentlyViewed from "@/components/RecentlyViewed";
+import EditorialBanner from "@/components/EditorialBanner";
 
 export default function HomeContent({
   products,
@@ -47,6 +49,8 @@ export default function HomeContent({
         </div>
       </section>
 
+      <EditorialBanner />
+
       <PromoSection />
 
       <ArrowSection>
@@ -56,6 +60,8 @@ export default function HomeContent({
       <ArrowSection>
         <ArrowProductRow title={t("home.bestsellers")} viewAllHref="/category/best-sellers" products={bestSellers} />
       </ArrowSection>
+
+      <RecentlyViewed />
 
       <ShopTheLook />
 

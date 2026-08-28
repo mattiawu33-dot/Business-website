@@ -111,13 +111,27 @@ export default function SearchOverlay({
             </div>
           )}
           {q && results.length === 0 && (
-            <p className="px-2 py-8 text-center text-sm text-muted">
-              {t("search.noMatches", {
-                query,
-                term1: translateTag("style", SUGGESTED_TERMS[0][0].toUpperCase() + SUGGESTED_TERMS[0].slice(1), locale),
-                term2: translateTag("style", SUGGESTED_TERMS[1][0].toUpperCase() + SUGGESTED_TERMS[1].slice(1), locale),
-              })}
-            </p>
+            <div className="px-2 py-8 text-center">
+              <p className="text-sm text-muted">
+                {t("search.noMatches", {
+                  query,
+                  term1: translateTag("style", SUGGESTED_TERMS[0][0].toUpperCase() + SUGGESTED_TERMS[0].slice(1), locale),
+                  term2: translateTag("style", SUGGESTED_TERMS[1][0].toUpperCase() + SUGGESTED_TERMS[1].slice(1), locale),
+                })}
+              </p>
+              <div className="mt-4 flex flex-wrap justify-center gap-2">
+                {SUGGESTED_TERMS.map((term) => (
+                  <button
+                    key={term}
+                    type="button"
+                    onClick={() => setQuery(term)}
+                    className="rounded-full border border-border px-3 py-1.5 text-sm text-neutral-700 transition hover:border-accent hover:text-accent"
+                  >
+                    {translateTag("style", term[0].toUpperCase() + term.slice(1), locale)}
+                  </button>
+                ))}
+              </div>
+            </div>
           )}
           <ul className="flex flex-col gap-1">
             {results.map((p) => (

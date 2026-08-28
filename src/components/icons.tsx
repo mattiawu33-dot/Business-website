@@ -69,6 +69,16 @@ export function MapPinIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+export function ZoomIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="M20 20l-4.35-4.35" strokeLinecap="round" />
+      <path d="M10.5 8v5M8 10.5h5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function AppleIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>

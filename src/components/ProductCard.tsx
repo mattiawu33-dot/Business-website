@@ -35,6 +35,29 @@ export default function ProductCard({ product, priority = false }: { product: Pr
             className="product-photo object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             priority={priority}
           />
+          {/* Quick view: on hover, crossfade to the second photo (if any)
+              and reveal a size preview — a peek at the product without
+              leaving the grid. Hover-only, so it degrades to a plain tap
+              through to the PDP on touch. */}
+          {product.images.length > 1 && (
+            <Image
+              src={product.images[1]}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
+              className="product-photo object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            />
+          )}
+          <div className="absolute inset-x-0 bottom-0 translate-y-full bg-white/95 px-2.5 py-2 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+            <p className="mb-1 text-[10px] uppercase tracking-wide text-muted">{t("pdp.size")}</p>
+            <div className="flex flex-wrap gap-1">
+              {product.sizes.map((s) => (
+                <span key={s} className="rounded border border-border px-1.5 py-0.5 text-[10px] text-neutral-700">
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
           {(product.isNew || product.isBestSeller || product.isBackInStock) && (
             <span
               className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
@@ -55,12 +78,12 @@ export default function ProductCard({ product, priority = false }: { product: Pr
         onClick={handleFavoriteClick}
         aria-pressed={favorited}
         aria-label={t(favorited ? "fav.removeCard" : "fav.addCard", { name: product.name })}
-        className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-neutral-800 shadow-sm transition hover:bg-white"
+        className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-neutral-800 shadow-sm transition-all hover:scale-110 hover:bg-white active:scale-95"
       >
-        <HeartIcon filled={favorited} className="h-4 w-4" />
+        <HeartIcon filled={favorited} className="h-4 w-4 transition-colors" />
       </button>
       <Link href={`/product/${product.slug}`} className="mt-3 flex flex-col gap-0.5">
-        <span className="text-sm text-neutral-800">{product.name}</span>
+        <span className="text-sm text-neutral-800 transition-colors group-hover:text-accent">{product.name}</span>
         <span className="text-sm text-muted">{formatPrice(product.price, product.currency, locale)}</span>
       </Link>
     </div>

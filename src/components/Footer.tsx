@@ -13,19 +13,19 @@ export default function Footer() {
         <div>
           <h3 className="mb-3 text-sm font-medium text-neutral-900">{t("footer.shopHeader")}</h3>
           <ul className="flex flex-col gap-2 text-sm text-neutral-600">
-            <li><Link href="/category/men" className="hover:text-neutral-900">{t("nav.men")}</Link></li>
-            <li><Link href="/category/women" className="hover:text-neutral-900">{t("nav.women")}</Link></li>
-            <li><Link href="/category/promotion" className="hover:text-neutral-900">{t("nav.promotion")}</Link></li>
-            <li><Link href="/category/kids" className="hover:text-neutral-900">{t("nav.kids")}</Link></li>
-            <li><Link href="/category/new" className="hover:text-neutral-900">{t("nav.new")}</Link></li>
-            <li><Link href="/category/best-sellers" className="hover:text-neutral-900">{t("nav.bestSellers")}</Link></li>
+            <li><Link href="/category/men" className="transition-colors hover:text-neutral-900">{t("nav.men")}</Link></li>
+            <li><Link href="/category/women" className="transition-colors hover:text-neutral-900">{t("nav.women")}</Link></li>
+            <li><Link href="/category/promotion" className="transition-colors hover:text-neutral-900">{t("nav.promotion")}</Link></li>
+            <li><Link href="/category/kids" className="transition-colors hover:text-neutral-900">{t("nav.kids")}</Link></li>
+            <li><Link href="/category/new" className="transition-colors hover:text-neutral-900">{t("nav.new")}</Link></li>
+            <li><Link href="/category/best-sellers" className="transition-colors hover:text-neutral-900">{t("nav.bestSellers")}</Link></li>
           </ul>
         </div>
         <div>
           <h3 className="mb-3 text-sm font-medium text-neutral-900">{t("footer.helpHeader")}</h3>
           <ul className="flex flex-col gap-2 text-sm text-neutral-600">
-            <li><Link href="/about" className="hover:text-neutral-900">{t("footer.about")}</Link></li>
-            <li><span className="text-neutral-400">{t("footer.sizeGuide")}</span></li>
+            <li><Link href="/about" className="transition-colors hover:text-neutral-900">{t("footer.about")}</Link></li>
+            <li><Link href="/size-guide" className="transition-colors hover:text-neutral-900">{t("footer.sizeGuide")}</Link></li>
             <li><span className="text-neutral-400">{t("footer.contact")}</span></li>
           </ul>
         </div>
@@ -37,7 +37,7 @@ export default function Footer() {
                 href="https://www.instagram.com/ishuemoda/"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-neutral-900"
+                className="transition-colors hover:text-neutral-900"
               >
                 {t("footer.instagram")}
               </a>

@@ -135,7 +135,7 @@ export default function CategoryProductGrid({
         <button
           type="button"
           onClick={() => setMobileFiltersOpen(true)}
-          className="rounded-md border border-border px-4 py-2 text-sm font-medium text-neutral-800"
+          className="rounded-md border border-border px-4 py-2 text-sm font-medium text-neutral-800 transition-colors hover:border-accent hover:text-accent"
         >
           {t("filters.mobileButton")}{hasActiveFilters ? " •" : ""}
         </button>
@@ -166,7 +166,7 @@ export default function CategoryProductGrid({
             <button
               type="button"
               onClick={() => setMobileFiltersOpen(false)}
-              className="mt-6 w-full rounded-md bg-accent py-3 text-sm font-medium text-accent-foreground"
+              className="mt-6 w-full rounded-md bg-accent py-3 text-sm font-medium text-accent-foreground transition hover:brightness-95"
             >
               {t("filters.showItems", {
                 count: filtered.length,
@@ -191,7 +191,7 @@ export default function CategoryProductGrid({
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className="rounded-md border border-border bg-white px-3 py-1.5 text-sm"
+              className="rounded-md border border-border bg-white px-3 py-1.5 text-sm transition-colors hover:border-accent"
               aria-label={t("grid.sortBy")}
             >
               {SORTS.map((s) => (

@@ -17,6 +17,7 @@ const it = {
   "header.language": "Lingua",
   "header.storeLocator": "Trova un negozio",
   "header.media": "Contatti",
+  "backToTop.label": "Torna in cima",
 
   "nav.men": "Uomo",
   "nav.women": "Donna",
@@ -64,6 +65,24 @@ const it = {
 
   "home.currentPromotion": "Promozione in corso",
   "home.bestsellers": "Più venduti",
+  "home.recentlyViewed": "Visti di recente",
+
+  "editorial.eyebrow": "Nuova stagione",
+  "editorial.title": "La collezione del momento",
+  "editorial.subtitle": "I pezzi must-have di questa stagione, selezionati per te.",
+  "editorial.cta": "Scopri la collezione",
+
+  "sizeGuide.title": "Guida alle taglie",
+  "sizeGuide.subtext": "Una guida generale alle taglie per aiutarti a scegliere. Adatta alla vestibilità di ogni capo.",
+  "sizeGuide.womenHeader": "Donna",
+  "sizeGuide.menHeader": "Uomo",
+  "sizeGuide.colSize": "Taglia",
+  "sizeGuide.colEu": "EU",
+  "sizeGuide.colBust": "Torace",
+  "sizeGuide.colChest": "Torace",
+  "sizeGuide.colWaist": "Vita",
+  "sizeGuide.colHips": "Fianchi",
+  "sizeGuide.note": "Misure indicative in centimetri. La vestibilità può variare in base al modello e al tessuto di ogni capo.",
 
   "promo.shopEditWomen": "Scopri la selezione — Donna",
   "promo.shopEditMen": "Scopri la selezione — Uomo",
@@ -139,6 +158,8 @@ const it = {
   "pdp.contactInstagram": "Scrivici su Instagram",
   "pdp.youMightAlsoLike": "Potrebbe piacerti anche",
   "pdp.showImage": "Mostra immagine {n}",
+  "pdp.zoomOpen": "Ingrandisci immagine",
+  "pdp.zoomClose": "Chiudi immagine ingrandita",
 
   "search.title": "Cerca",
   "search.placeholder": "Cerca prodotti",
@@ -188,6 +209,7 @@ const en: Record<DictKey, string> = {
   "header.language": "Language",
   "header.storeLocator": "Find a store",
   "header.media": "Contact",
+  "backToTop.label": "Back to top",
 
   "nav.men": "Men",
   "nav.women": "Women",
@@ -235,6 +257,24 @@ const en: Record<DictKey, string> = {
 
   "home.currentPromotion": "Current promotion",
   "home.bestsellers": "Bestsellers",
+  "home.recentlyViewed": "Recently viewed",
+
+  "editorial.eyebrow": "New season",
+  "editorial.title": "This season's edit",
+  "editorial.subtitle": "This season's must-have pieces, picked for you.",
+  "editorial.cta": "Shop the edit",
+
+  "sizeGuide.title": "Size Guide",
+  "sizeGuide.subtext": "A general size guide to help you choose. Fit may vary by style.",
+  "sizeGuide.womenHeader": "Women",
+  "sizeGuide.menHeader": "Men",
+  "sizeGuide.colSize": "Size",
+  "sizeGuide.colEu": "EU",
+  "sizeGuide.colBust": "Bust",
+  "sizeGuide.colChest": "Chest",
+  "sizeGuide.colWaist": "Waist",
+  "sizeGuide.colHips": "Hips",
+  "sizeGuide.note": "Measurements are approximate, in centimeters. Fit can vary by cut and fabric for each piece.",
 
   "promo.shopEditWomen": "Shop the edit — Women",
   "promo.shopEditMen": "Shop the edit — Men",
@@ -310,6 +350,8 @@ const en: Record<DictKey, string> = {
   "pdp.contactInstagram": "Message us on Instagram",
   "pdp.youMightAlsoLike": "You might also like",
   "pdp.showImage": "Show image {n}",
+  "pdp.zoomOpen": "Zoom image",
+  "pdp.zoomClose": "Close zoomed image",
 
   "search.title": "Search",
   "search.placeholder": "Search products",

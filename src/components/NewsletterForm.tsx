@@ -17,7 +17,7 @@ export default function NewsletterForm() {
         e.preventDefault();
         setSubmitted(true);
       }}
-      className="flex border border-neutral-300 bg-white"
+      className="flex border border-neutral-300 bg-white transition-colors focus-within:border-accent"
     >
       <input
         type="email"
@@ -25,7 +25,10 @@ export default function NewsletterForm() {
         placeholder={t("newsletter.placeholder")}
         className="w-full px-3 py-2 text-sm outline-none placeholder:text-neutral-400"
       />
-      <button type="submit" className="shrink-0 px-3 text-sm text-neutral-700 hover:text-neutral-900">
+      <button
+        type="submit"
+        className="shrink-0 px-3 text-sm text-neutral-700 transition-colors hover:text-accent"
+      >
         {t("newsletter.join")}
       </button>
     </form>

@@ -41,7 +41,7 @@ function ExpandIcon() {
 function FilterDetails({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <details className="group border-b border-border pb-4">
-      <summary className="flex cursor-pointer list-none items-center text-sm font-medium text-neutral-900">
+      <summary className="flex cursor-pointer list-none items-center text-sm font-medium text-neutral-900 transition-colors hover:text-accent">
         {title}
         <ExpandIcon />
       </summary>
@@ -162,7 +162,7 @@ export default function CategorySidebarFilters({
           type="button"
           onClick={onClearAll}
           disabled={!hasActiveFilters}
-          className="text-xs underline underline-offset-2 text-accent disabled:text-muted disabled:no-underline"
+          className="text-xs underline underline-offset-2 text-accent transition-opacity hover:opacity-70 disabled:text-muted disabled:no-underline disabled:hover:opacity-100"
         >
           {t("filters.clearAll")}
         </button>
@@ -243,8 +243,8 @@ export default function CategorySidebarFilters({
             type="button"
             onClick={() => setSize("all")}
             aria-pressed={size === "all"}
-            className={`rounded-md border px-3 py-1.5 text-xs ${
-              size === "all" ? "border-accent bg-accent text-accent-foreground" : "border-border text-neutral-700"
+            className={`rounded-md border px-3 py-1.5 text-xs transition ${
+              size === "all" ? "border-accent bg-accent text-accent-foreground" : "border-border text-neutral-700 hover:border-accent"
             }`}
           >
             {t("filters.sizeAll")}

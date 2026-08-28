@@ -30,21 +30,21 @@ export default function ShopTheLook() {
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
         {looks.map((look) => (
-          <div key={look.id} className="border border-border p-4">
+          <div key={look.id} className="border border-border p-4 transition-colors hover:border-neutral-300">
             <p className="mb-3 text-sm font-medium text-neutral-900">{t(look.titleKey)}</p>
             <div className="flex gap-3">
               {look.products.map((product) => (
-                <Link key={product.id} href={`/product/${product.slug}`} className="block w-1/2">
+                <Link key={product.id} href={`/product/${product.slug}`} className="group block w-1/2">
                   <div className="relative aspect-[2/3] w-full overflow-hidden bg-neutral-100">
                     <Image
                       src={product.images[0]}
                       alt={product.name}
                       fill
                       sizes="(min-width: 1024px) 15vw, 30vw"
-                      className="product-photo object-cover"
+                      className="product-photo object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                     />
                   </div>
-                  <span className="mt-2 block text-xs text-neutral-800">{product.name}</span>
+                  <span className="mt-2 block text-xs text-neutral-800 transition-colors group-hover:text-accent">{product.name}</span>
                   <span className="block text-xs text-muted">{formatPrice(product.price, product.currency, locale)}</span>
                 </Link>
               ))}
