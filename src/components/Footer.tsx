@@ -32,7 +32,16 @@ export default function Footer() {
         <div>
           <h3 className="mb-3 text-sm font-medium text-neutral-900">{t("footer.followHeader")}</h3>
           <ul className="flex flex-col gap-2 text-sm text-neutral-600">
-            <li><span className="text-neutral-400">{t("footer.instagram")}</span></li>
+            <li>
+              <a
+                href="https://www.instagram.com/ishuemoda/"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-neutral-900"
+              >
+                {t("footer.instagram")}
+              </a>
+            </li>
             <li><span className="text-neutral-400">{t("footer.pinterest")}</span></li>
             <li><span className="text-neutral-400">{t("footer.tiktok")}</span></li>
           </ul>
