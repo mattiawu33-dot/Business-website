@@ -11,7 +11,7 @@ import { styleOf } from "@/lib/style";
 import { translateTag, type DictKey } from "@/lib/i18n/dictionary";
 import SearchOverlay from "@/components/SearchOverlay";
 import LanguageToggle from "@/components/LanguageToggle";
-import { CloseIcon, HeartIcon, MapPinIcon, MenuIcon, SearchIcon, UserIcon } from "@/components/icons";
+import { CloseIcon, HeartIcon, MenuIcon, SearchIcon, UserIcon } from "@/components/icons";
 
 type NavLink = {
   labelKey: DictKey;
@@ -39,15 +39,14 @@ export default function Header() {
   const { email, isLoggedIn, logout, promptLogin } = useAuth();
   const { locale, t } = useLocale();
 
-  // Order and membership per Round 12's nav layout reference: Men / Women /
-  // Kids / Promotion / New Arrivals.
+  // Order and membership per Round 13's Nike/Adidas-style nav: Men / Women /
+  // Kids / Promotion.
   const navLinks: NavLink[] = useMemo(
     () => [
       { labelKey: "nav.men", href: "/category/men", subsections: subsectionsFor("men") },
       { labelKey: "nav.women", href: "/category/women", subsections: subsectionsFor("women") },
       { labelKey: "nav.kids", href: "/category/kids" },
       { labelKey: "nav.promotion", href: "/category/promotion" },
-      { labelKey: "nav.newArrivals", href: "/category/new" },
     ],
     []
   );
@@ -66,19 +65,83 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-border bg-white/95 backdrop-blur">
-        <div className="mx-auto grid max-w-6xl grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-4 sm:gap-4 sm:px-6 lg:px-8">
-          {/* Left: search, then category nav — the visual anchor is the
-              centered logo, per Round 12's nav layout. */}
-          <div className="flex items-center gap-3 md:gap-6">
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen((v) => !v)}
-              aria-label={mobileMenuOpen ? t("header.closeMenu") : t("header.openMenu")}
-              aria-expanded={mobileMenuOpen}
-              className="text-neutral-700 transition hover:text-accent md:hidden"
-            >
-              {mobileMenuOpen ? <CloseIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
-            </button>
+        {/* Utility bar: thin strip of minor links above the main nav, per
+            Round 13's Nike/Adidas-style two-tier layout. */}
+        <div className="hidden border-b border-border bg-neutral-50 md:block">
+          <div className="mx-auto flex max-w-6xl items-center justify-end gap-5 px-4 py-1.5 sm:px-6 lg:px-8">
+            <Link href="/stores" className="text-xs text-neutral-600 transition hover:text-accent">
+              {t("header.storeLocator")}
+            </Link>
+            <Link href="/about" className="text-xs text-neutral-600 transition hover:text-accent">
+              {t("footer.about")}
+            </Link>
+          </div>
+        </div>
+
+        {/* Main row: logo far left, then category links, search, language
+            toggle, account, favorites — in that order. */}
+        <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3 sm:gap-6 sm:px-6 lg:px-8">
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((v) => !v)}
+            aria-label={mobileMenuOpen ? t("header.closeMenu") : t("header.openMenu")}
+            aria-expanded={mobileMenuOpen}
+            className="text-neutral-700 transition hover:text-accent md:hidden"
+          >
+            {mobileMenuOpen ? <CloseIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+          </button>
+
+          <Link href="/" aria-label="Ishué" className="shrink-0">
+            <Image
+              src="/images/brand/logo.png"
+              alt="Ishué"
+              width={384}
+              height={217}
+              priority
+              className="h-11 w-auto object-contain sm:h-14"
+            />
+          </Link>
+
+          <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+            {navLinks.map((link) => (
+              <div key={link.href} className="group relative">
+                <Link
+                  href={link.href}
+                  className="block px-2.5 py-2 text-sm font-medium text-neutral-800 transition hover:text-accent lg:px-3"
+                >
+                  {t(link.labelKey)}
+                </Link>
+                {link.subsections && link.subsections.length > 0 && (
+                  <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-2 opacity-0 transition delay-150 group-hover:visible group-hover:opacity-100 group-hover:delay-0 group-focus-within:visible group-focus-within:opacity-100">
+                    <div className="border border-border bg-white p-5 shadow-lg">
+                      <Link
+                        href={link.href}
+                        className="mb-3 block text-xs font-semibold uppercase tracking-wide text-neutral-900 hover:text-accent"
+                      >
+                        {t("header.shopAll", { category: t(link.labelKey) })}
+                      </Link>
+                      <p className="mb-2 text-[11px] font-medium uppercase tracking-wide text-muted">
+                        {t("header.shopByStyle")}
+                      </p>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                        {link.subsections.map((s) => (
+                          <Link
+                            key={s.href}
+                            href={s.href}
+                            className="py-1 text-sm text-neutral-600 transition hover:text-accent"
+                          >
+                            {translateTag("style", s.style, locale)}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          <div className="ml-auto flex items-center gap-3 sm:gap-4">
             <form onSubmit={submitSearch} className="relative hidden sm:block">
               <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
               <input
@@ -99,68 +162,6 @@ export default function Header() {
             >
               <SearchIcon className="h-5 w-5" />
             </button>
-
-            <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
-              {navLinks.map((link) => (
-                <div key={link.href} className="group relative">
-                  <Link
-                    href={link.href}
-                    className="block px-2.5 py-2 text-sm font-medium text-neutral-800 transition hover:text-accent lg:px-3"
-                  >
-                    {t(link.labelKey)}
-                  </Link>
-                  {link.subsections && link.subsections.length > 0 && (
-                    <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-2 opacity-0 transition delay-150 group-hover:visible group-hover:opacity-100 group-hover:delay-0 group-focus-within:visible group-focus-within:opacity-100">
-                      <div className="border border-border bg-white p-5 shadow-lg">
-                        <Link
-                          href={link.href}
-                          className="mb-3 block text-xs font-semibold uppercase tracking-wide text-neutral-900 hover:text-accent"
-                        >
-                          {t("header.shopAll", { category: t(link.labelKey) })}
-                        </Link>
-                        <p className="mb-2 text-[11px] font-medium uppercase tracking-wide text-muted">
-                          {t("header.shopByStyle")}
-                        </p>
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-1">
-                          {link.subsections.map((s) => (
-                            <Link
-                              key={s.href}
-                              href={s.href}
-                              className="py-1 text-sm text-neutral-600 transition hover:text-accent"
-                            >
-                              {translateTag("style", s.style, locale)}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </nav>
-          </div>
-
-          {/* Center: logo — the visual anchor of the nav. */}
-          <Link href="/" aria-label="Ishué" className="justify-self-center">
-            <Image
-              src="/images/brand/logo.png"
-              alt="Ishué"
-              width={447}
-              height={447}
-              priority
-              className="h-10 w-10 object-contain sm:h-12 sm:w-12"
-            />
-          </Link>
-
-          {/* Right: store locator, language toggle, account, favorites. */}
-          <div className="flex items-center justify-self-end gap-3 sm:gap-4">
-            <Link
-              href="/stores"
-              aria-label={t("header.storeLocator")}
-              className="text-neutral-700 transition hover:text-accent"
-            >
-              <MapPinIcon className="h-5 w-5" />
-            </Link>
             <LanguageToggle />
             <div className="relative">
               <button
@@ -216,6 +217,14 @@ export default function Header() {
 
         {mobileMenuOpen && (
           <nav aria-label="Primary mobile" className="border-t border-border px-4 pb-4 md:hidden">
+            <div className="flex gap-4 border-b border-border py-2.5">
+              <Link href="/stores" onClick={closeMobileMenu} className="text-sm text-neutral-700">
+                {t("header.storeLocator")}
+              </Link>
+              <Link href="/about" onClick={closeMobileMenu} className="text-sm text-neutral-700">
+                {t("footer.about")}
+              </Link>
+            </div>
             {navLinks.map((link) => (
               <div key={link.href} className="border-b border-border py-1 last:border-b-0">
                 {link.subsections && link.subsections.length > 0 ? (

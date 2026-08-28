@@ -26,10 +26,9 @@ const it = {
   "nav.bestSellers": "Più venduti",
 
   "stores.title": "I nostri negozi",
-  "stores.subtext":
-    "Un piccolo esempio di posizioni per revisionare il layout — l'elenco completo e confermato arriverà in un prossimo aggiornamento.",
-  "stores.hoursWeekday": "Lun–Sab 10:00–19:30",
-  "stores.hoursSunday": "Dom 11:00–18:00",
+  "stores.subtext": "I nostri punti vendita in Piemonte e Liguria. Seleziona una città per vedere la mappa.",
+  "stores.selectPrompt": "Seleziona un negozio dall'elenco per vedere la mappa.",
+  "stores.viewOnMaps": "Apri in Google Maps",
 
   "category.men.desc": "Stili a rotazione rapida per tutti i giorni, a un prezzo che tiene il passo.",
   "category.women.desc": "Un'ampia gamma di stili per ogni occasione, a un prezzo che ti permette di comprare spesso.",
@@ -196,10 +195,9 @@ const en: Record<DictKey, string> = {
   "nav.bestSellers": "Best Sellers",
 
   "stores.title": "Our Stores",
-  "stores.subtext":
-    "A small sample of locations so the layout can be reviewed — the full, confirmed list will follow in an upcoming round.",
-  "stores.hoursWeekday": "Mon–Sat 10:00–19:30",
-  "stores.hoursSunday": "Sun 11:00–18:00",
+  "stores.subtext": "Our stores across Piemonte and Liguria. Select a city to see it on the map.",
+  "stores.selectPrompt": "Select a store from the list to see its location.",
+  "stores.viewOnMaps": "Open in Google Maps",
 
   "category.men.desc": "Fast-turnover styles for everyday wear, priced to keep up with your rotation.",
   "category.women.desc": "A wide range of styles for every occasion, at a price that lets you shop often.",
