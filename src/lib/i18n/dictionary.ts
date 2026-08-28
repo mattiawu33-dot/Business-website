@@ -66,6 +66,12 @@ const it = {
   "style.header": "Scopri per stile",
   "style.subtext": "Un solo brand, ogni occasione — scegli uno stile da esplorare.",
 
+  "shopTheLook.header": "Scopri il look",
+  "shopTheLook.subtext": "Abbinamenti d'esempio dal nostro catalogo — presto con i look reali.",
+  "look.casual": "L'abbinamento casual",
+  "look.goingOut": "L'abbinamento per la serata",
+  "look.layered": "L'abbinamento a strati",
+
   "arrow.viewAll": "Vedi tutto",
   "arrow.scrollLeft": "Scorri {title} a sinistra",
   "arrow.scrollRight": "Scorri {title} a destra",
@@ -88,6 +94,12 @@ const it = {
   "filters.featuresAll": "Tutti i dettagli",
   "filters.size": "Taglia",
   "filters.sizeAll": "Tutte",
+
+  "vibe.casual": "Casual",
+  "vibe.everyday": "Tutti i giorni",
+  "vibe.goingOut": "Serata",
+  "vibe.statement": "Statement",
+  "vibe.layering": "A strati",
   "filters.mobileButton": "Filtri",
   "filters.mobileClose": "Chiudi filtri",
   "filters.showItems": "Mostra {count} {item}",
@@ -115,7 +127,7 @@ const it = {
 
   "pdp.size": "Taglia",
   "pdp.sizeGuide": "Guida alle taglie",
-  "pdp.contactButton": "Scrivici per acquistarlo",
+  "pdp.contactInstagram": "Scrivici su Instagram",
   "pdp.youMightAlsoLike": "Potrebbe piacerti anche",
   "pdp.showImage": "Mostra immagine {n}",
 
@@ -143,12 +155,13 @@ const it = {
   "favoritesPage.empty": "Non hai ancora salvato nulla.",
   "favoritesPage.continueShopping": "Continua lo shopping",
 
-  "about.h1": "Il nostro approccio",
+  "about.h1": "Chi siamo",
   "about.p1":
-    "Ishue è per chi vuole restare al passo senza pagare prezzi premium. Offriamo gli stessi stili e la stessa qualità dei grandi marchi, a un prezzo più basso — non perché sia economico, ma perché non deve costare di più.",
+    "Testo segnaposto — paragrafo \"Chi siamo\". Sarà sostituito con i contenuti reali del brand non appena saranno pronti.",
   "about.p2":
-    "Il nostro catalogo copre un'ampia gamma di stili ed età, quindi c'è sempre qualcosa per te, che tu ti stia vestendo per una serata fuori o per un martedì qualunque. E poiché ci muoviamo in fretta, il catalogo si rinnova continuamente — nuovi stili arrivano spesso invece di aspettare un'unica collezione stagionale.",
-  "about.p3": "Tre cose guidano tutto quello che facciamo: versatilità nello stile, prezzi accessibili e velocità.",
+    "Testo segnaposto — paragrafo \"Cosa rappresentiamo\". Sarà sostituito con i contenuti reali del brand non appena saranno pronti.",
+  "about.photoStorefront": "Foto della vetrina — in arrivo",
+  "about.photoInterior": "Foto dell'interno del negozio — in arrivo",
 } as const;
 
 type DictKey = keyof typeof it;
@@ -215,6 +228,12 @@ const en: Record<DictKey, string> = {
   "style.header": "Shop by style",
   "style.subtext": "One brand, every occasion — pick a style to explore.",
 
+  "shopTheLook.header": "Shop the Look",
+  "shopTheLook.subtext": "Sample pairings from our catalog — real looks coming soon.",
+  "look.casual": "The casual pairing",
+  "look.goingOut": "The going-out pairing",
+  "look.layered": "The layered pairing",
+
   "arrow.viewAll": "View all",
   "arrow.scrollLeft": "Scroll {title} left",
   "arrow.scrollRight": "Scroll {title} right",
@@ -237,6 +256,12 @@ const en: Record<DictKey, string> = {
   "filters.featuresAll": "All features",
   "filters.size": "Size",
   "filters.sizeAll": "All",
+
+  "vibe.casual": "Casual",
+  "vibe.everyday": "Everyday",
+  "vibe.goingOut": "Going Out",
+  "vibe.statement": "Statement",
+  "vibe.layering": "Layering",
   "filters.mobileButton": "Filters",
   "filters.mobileClose": "Close filters",
   "filters.showItems": "Show {count} {item}",
@@ -264,7 +289,7 @@ const en: Record<DictKey, string> = {
 
   "pdp.size": "Size",
   "pdp.sizeGuide": "Size guide",
-  "pdp.contactButton": "Message us to buy",
+  "pdp.contactInstagram": "Message us on Instagram",
   "pdp.youMightAlsoLike": "You might also like",
   "pdp.showImage": "Show image {n}",
 
@@ -292,12 +317,12 @@ const en: Record<DictKey, string> = {
   "favoritesPage.empty": "You haven't saved anything yet.",
   "favoritesPage.continueShopping": "Continue shopping",
 
-  "about.h1": "Our approach",
-  "about.p1":
-    "Ishue is for people who want to stay current without paying premium prices for it. We carry the same styles and quality you'd find at the bigger names, priced lower — not because it's cheap, but because it doesn't need to cost more.",
+  "about.h1": "About us",
+  "about.p1": "Placeholder text — \"who we are\" paragraph. This will be replaced with real brand copy once it's ready.",
   "about.p2":
-    "Our catalog spans a wide range of styles and ages, so there's something here whether you're dressing for a night out or a Tuesday. And because we move fast, the catalog keeps turning over — new styles arrive often instead of waiting on a single seasonal drop.",
-  "about.p3": "Three things guide everything we make: styling versatility, affordable pricing, and speed.",
+    "Placeholder text — \"what we stand for\" paragraph. This will be replaced with real brand copy once it's ready.",
+  "about.photoStorefront": "Storefront photo — coming soon",
+  "about.photoInterior": "Store interior photo — coming soon",
 };
 
 export const dictionaries: Record<Locale, Record<DictKey, string>> = { it, en };

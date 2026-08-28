@@ -128,7 +128,7 @@ export default function SearchOverlay({
                   className="flex items-center gap-3 rounded px-2 py-2 hover:bg-neutral-50"
                 >
                   <div className="relative h-14 w-11 shrink-0 overflow-hidden bg-neutral-100">
-                    <Image src={p.images[0]} alt="" fill sizes="44px" className="object-cover" />
+                    <Image src={p.images[0]} alt="" fill sizes="44px" className="product-photo object-cover" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-sm text-neutral-800">{highlight(p.name, query.trim())}</span>

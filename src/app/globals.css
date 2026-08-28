@@ -32,3 +32,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Round 11: one consistent display-level color-grade applied to every
+   product photo, regardless of whether the source file was already
+   AI-enhanced or is still an original camera shot — a shared visual
+   treatment, not a re-run of per-image enhancement. */
+.product-photo {
+  filter: contrast(1.04) saturate(1.08) brightness(1.02);
+}

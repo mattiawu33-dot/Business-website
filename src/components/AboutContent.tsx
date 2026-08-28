@@ -1,27 +1,28 @@
 "use client";
 
-import Image from "next/image";
 import { useLocale } from "@/context/LocaleContext";
+
+function PhotoPlaceholder({ label }: { label: string }) {
+  return (
+    <div className="flex aspect-[4/5] w-full items-center justify-center border border-dashed border-neutral-300 bg-neutral-50 text-center">
+      <span className="px-4 text-xs uppercase tracking-wide text-neutral-400">{label}</span>
+    </div>
+  );
+}
 
 export default function AboutContent() {
   const { t } = useLocale();
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col items-center gap-10 px-4 py-16 sm:px-6 md:flex-row lg:px-8">
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-100 md:w-1/2">
-        <Image
-          src="/images/about.svg"
-          alt="Inside the Ishue studio"
-          fill
-          sizes="(min-width: 768px) 50vw, 100vw"
-          className="object-cover"
-        />
+    <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+      <h1 className="text-2xl font-medium text-neutral-900">{t("about.h1")}</h1>
+      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <PhotoPlaceholder label={t("about.photoStorefront")} />
+        <PhotoPlaceholder label={t("about.photoInterior")} />
       </div>
-      <div className="w-full md:w-1/2">
-        <h1 className="text-2xl font-medium text-neutral-900">{t("about.h1")}</h1>
-        <p className="mt-4 text-base leading-relaxed text-neutral-700">{t("about.p1")}</p>
+      <div className="mt-8 max-w-2xl">
+        <p className="text-base leading-relaxed text-neutral-700">{t("about.p1")}</p>
         <p className="mt-4 text-base leading-relaxed text-neutral-700">{t("about.p2")}</p>
-        <p className="mt-4 text-base leading-relaxed text-neutral-700">{t("about.p3")}</p>
       </div>
     </div>
   );

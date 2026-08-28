@@ -37,7 +37,7 @@ export default function ProductDetail({ product }: { product: Product }) {
             fill
             priority
             sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-cover"
+            className="product-photo object-cover"
           />
         </div>
         {product.images.length > 1 && (
@@ -53,7 +53,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                   activeImage === i ? "ring-neutral-900" : "ring-transparent"
                 }`}
               >
-                <Image src={img} alt="" fill sizes="64px" className="object-cover" />
+                <Image src={img} alt="" fill sizes="64px" className="product-photo object-cover" />
               </button>
             ))}
           </div>

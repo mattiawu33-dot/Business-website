@@ -4,12 +4,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { Product } from "@/lib/types";
 import { styleOf } from "@/lib/style";
-import { colorOf, fitOf, featuresOf } from "@/lib/tags";
+import { colorOf, fitOf, featuresOf, vibesOf, type VibeTag } from "@/lib/tags";
 import { useLocale } from "@/context/LocaleContext";
 import type { DictKey } from "@/lib/i18n/dictionary";
 import ProductCard from "@/components/ProductCard";
 import ComingSoonCard from "@/components/ComingSoonCard";
 import CategorySidebarFilters, { PRICE_BANDS } from "@/components/CategorySidebarFilters";
+import VibeFilterPills from "@/components/VibeFilterPills";
 import { CloseIcon } from "@/components/icons";
 
 const PAGE_SIZE = 12;
@@ -40,6 +41,7 @@ export default function CategoryProductGrid({
   const [color, setColor] = useState("all");
   const [fit, setFit] = useState("all");
   const [feature, setFeature] = useState("all");
+  const [vibe, setVibe] = useState("all");
   const [promoOnly, setPromoOnly] = useState(false);
   const [sort, setSort] = useState("featured");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -65,6 +67,7 @@ export default function CategoryProductGrid({
       if (color !== "all" && colorOf(p) !== color) return false;
       if (fit !== "all" && fitOf(p) !== fit) return false;
       if (feature !== "all" && !featuresOf(p).includes(feature)) return false;
+      if (vibe !== "all" && !vibesOf(p).includes(vibe as VibeTag)) return false;
       if (promoOnly && !p.onPromotion) return false;
       if (!PRICE_BANDS[priceBand].test(p.price)) return false;
       return true;
@@ -74,12 +77,18 @@ export default function CategoryProductGrid({
     else if (sort === "price-desc") sorted.sort((a, b) => b.price - a.price);
     else if (sort === "newest") sorted.sort((a, b) => Number(b.isNew) - Number(a.isNew));
     return sorted;
-  }, [products, size, style, color, fit, feature, promoOnly, priceBand, sort]);
+  }, [products, size, style, color, fit, feature, vibe, promoOnly, priceBand, sort]);
 
-  const filterKey = `${size}|${style}|${color}|${fit}|${feature}|${promoOnly}|${priceBand}|${sort}`;
+  const filterKey = `${size}|${style}|${color}|${fit}|${feature}|${vibe}|${promoOnly}|${priceBand}|${sort}`;
 
   const hasActiveFilters =
-    size !== "all" || style !== "all" || color !== "all" || fit !== "all" || feature !== "all" || promoOnly || priceBand !== 0;
+    size !== "all" ||
+    style !== "all" ||
+    color !== "all" ||
+    fit !== "all" ||
+    feature !== "all" ||
+    promoOnly ||
+    priceBand !== 0;
   function clearAll() {
     setSize("all");
     setStyle("all");
@@ -169,6 +178,7 @@ export default function CategoryProductGrid({
       )}
 
       <div>
+        <VibeFilterPills vibe={vibe} setVibe={setVibe} />
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
           <span className="text-sm text-muted">
             {t("grid.itemCount", {

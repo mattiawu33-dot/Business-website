@@ -7,6 +7,7 @@ import ArrowProductRow from "@/components/ArrowProductRow";
 import StyleSelector from "@/components/StyleSelector";
 import BrandStrip from "@/components/BrandStrip";
 import PromoSection from "@/components/PromoSection";
+import ShopTheLook from "@/components/ShopTheLook";
 
 export default function HomeContent({
   products,
@@ -55,6 +56,8 @@ export default function HomeContent({
       <ArrowSection>
         <ArrowProductRow title={t("home.bestsellers")} viewAllHref="/category/best-sellers" products={bestSellers} />
       </ArrowSection>
+
+      <ShopTheLook />
 
       <StyleSelector products={products} />
 

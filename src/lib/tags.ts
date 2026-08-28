@@ -1,4 +1,5 @@
 import type { Product } from "@/lib/types";
+import { styleOf } from "@/lib/style";
 
 // Fit/Features/Color have no structured field in the catalog, so they're
 // derived from the real product name + description text (same spirit as
@@ -76,4 +77,39 @@ export function fitOf(p: Product): string {
 export function featuresOf(p: Product): string[] {
   const t = textOf(p);
   return FEATURE_WORDS.filter((w) => t.includes(w)).map(capitalize);
+}
+
+// Vibe/occasion tags (Round 11) — a lightweight, intentionally imprecise
+// browsing shortcut, distinct from the detailed sidebar filters above. Like
+// color/fit/features, tags are derived from the product's own name/style
+// rather than invented per-product; "Everyday" is a broader catch for
+// otherwise-untagged basic styles so the shortcut stays useful without
+// fabricating occasion data that doesn't exist in the catalog.
+const GOING_OUT_WORDS = [
+  "halter", "strapless", "off-shoulder", "bodycon", "cutout", "corset", "bustier", "mini", "sequin", "rhinestone", "slip dress",
+];
+const STATEMENT_WORDS = [
+  "rhinestone", "sequin", "leopard print", "applique", "embroidered", "colorblock", "chevron knit", "beaded", "tie-dye",
+];
+const LAYERING_WORDS = ["blazer", "kimono", "cami", "vest", "cardigan"];
+const LAYERING_STYLES = ["Blazer", "Kimono", "Cami"];
+const CASUAL_WORDS = ["oversized", "baggy", "loose", "relaxed", "slouchy", "jogger", "drawstring", "denim", "tee", "linen", "track"];
+const CASUAL_STYLES = ["Joggers", "Tee", "Shorts"];
+const EVERYDAY_STYLES = ["Trousers", "Shirt", "Jeans", "Skirt", "Top", "Dress", "Blouse"];
+
+export const VIBE_TAGS = ["Casual", "Everyday", "Going Out", "Statement", "Layering"] as const;
+export type VibeTag = (typeof VIBE_TAGS)[number];
+
+export function vibesOf(p: Product): VibeTag[] {
+  const t = textOf(p);
+  const style = styleOf(p.name);
+  const tags: VibeTag[] = [];
+
+  if (GOING_OUT_WORDS.some((w) => t.includes(w))) tags.push("Going Out");
+  if (STATEMENT_WORDS.some((w) => t.includes(w))) tags.push("Statement");
+  if (LAYERING_WORDS.some((w) => t.includes(w)) || LAYERING_STYLES.includes(style)) tags.push("Layering");
+  if (CASUAL_WORDS.some((w) => t.includes(w)) || CASUAL_STYLES.includes(style)) tags.push("Casual");
+  if (tags.length === 0 && EVERYDAY_STYLES.includes(style)) tags.push("Everyday");
+
+  return tags;
 }

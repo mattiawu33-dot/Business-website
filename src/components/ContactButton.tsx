@@ -3,25 +3,30 @@
 import { useLocale } from "@/context/LocaleContext";
 
 /**
- * "How to get this" prompt for the browse-only site (Round 8). The real
- * contact channel (Instagram DM / WhatsApp / phone / in-store only) hasn't
- * been decided yet, so this is a single reusable, honestly-placeholder
- * button — swapping CONTACT_HREF below is the only change needed once the
- * real channel is confirmed. The label is translated; the link itself
- * isn't locale-specific.
+ * "How to get this" prompt for the browse-only site (Round 8). Instagram is
+ * the one live channel for now (Round 11); a WhatsApp number will be added
+ * as a second CONTACT_CHANNELS entry once provided — the row layout already
+ * supports more than one button without restructuring.
  */
-const CONTACT_HREF = "https://instagram.com/ishue";
+const CONTACT_CHANNELS = [
+  { key: "instagram", href: "https://www.instagram.com/ishuemoda/", labelKey: "pdp.contactInstagram" as const },
+];
 
 export default function ContactButton() {
   const { t } = useLocale();
   return (
-    <a
-      href={CONTACT_HREF}
-      target="_blank"
-      rel="noreferrer"
-      className="mt-6 flex w-full items-center justify-center rounded-md bg-accent py-3.5 text-sm font-medium text-accent-foreground transition hover:brightness-95"
-    >
-      {t("pdp.contactButton")}
-    </a>
+    <div className="mt-6 flex w-full flex-wrap gap-3">
+      {CONTACT_CHANNELS.map((channel) => (
+        <a
+          key={channel.key}
+          href={channel.href}
+          target="_blank"
+          rel="noreferrer"
+          className="flex flex-1 items-center justify-center rounded-md bg-accent py-3.5 text-sm font-medium text-accent-foreground transition hover:brightness-95"
+        >
+          {t(channel.labelKey)}
+        </a>
+      ))}
+    </div>
   );
 }
