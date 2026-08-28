@@ -16,6 +16,7 @@ const it = {
   "header.shopByStyle": "Scopri per stile",
   "header.language": "Lingua",
   "header.storeLocator": "Trova un negozio",
+  "header.media": "Contatti",
 
   "nav.men": "Uomo",
   "nav.women": "Donna",
@@ -46,6 +47,7 @@ const it = {
   "footer.sizeGuide": "Guida alle taglie",
   "footer.contact": "Contatti",
   "footer.instagram": "Instagram",
+  "footer.facebook": "Facebook",
   "footer.pinterest": "Pinterest",
   "footer.tiktok": "TikTok",
   "footer.copyright": "© {year} Ishue. Tutti i diritti riservati.",
@@ -185,6 +187,7 @@ const en: Record<DictKey, string> = {
   "header.shopByStyle": "Shop by style",
   "header.language": "Language",
   "header.storeLocator": "Find a store",
+  "header.media": "Contact",
 
   "nav.men": "Men",
   "nav.women": "Women",
@@ -215,6 +218,7 @@ const en: Record<DictKey, string> = {
   "footer.sizeGuide": "Size Guide",
   "footer.contact": "Contact",
   "footer.instagram": "Instagram",
+  "footer.facebook": "Facebook",
   "footer.pinterest": "Pinterest",
   "footer.tiktok": "TikTok",
   "footer.copyright": "© {year} Ishue. All rights reserved.",

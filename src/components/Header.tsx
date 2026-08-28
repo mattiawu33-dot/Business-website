@@ -66,13 +66,37 @@ export default function Header() {
     <>
       <header className="sticky top-0 z-40 border-b border-border bg-white/95 backdrop-blur">
         {/* Utility bar: thin strip of minor links above the main nav, per
-            Round 13's Nike/Adidas-style two-tier layout. */}
-        <div className="hidden border-b border-border bg-neutral-50 md:block">
+            Round 13's Nike/Adidas-style two-tier layout. Round 15: solid
+            black background with white text so it reads clearly instead of
+            blending into the page. */}
+        <div className="hidden bg-neutral-900 md:block">
           <div className="mx-auto flex max-w-6xl items-center justify-end gap-5 px-4 py-1.5 sm:px-6 lg:px-8">
-            <Link href="/stores" className="text-xs text-neutral-600 transition hover:text-accent">
+            <Link href="/stores" className="text-xs font-medium text-white transition hover:text-accent">
               {t("header.storeLocator")}
             </Link>
-            <Link href="/about" className="text-xs text-neutral-600 transition hover:text-accent">
+            <div className="group relative">
+              <button
+                type="button"
+                className="text-xs font-medium text-white transition hover:text-accent"
+              >
+                {t("header.media")}
+              </button>
+              <div className="invisible absolute right-0 top-full z-50 w-40 pt-2 opacity-0 transition delay-150 group-hover:visible group-hover:opacity-100 group-hover:delay-0 group-focus-within:visible group-focus-within:opacity-100">
+                <div className="border border-border bg-white p-3 shadow-lg">
+                  <a
+                    href="https://www.instagram.com/ishuemoda/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block py-1 text-sm text-neutral-700 hover:text-accent"
+                  >
+                    {t("footer.instagram")}
+                  </a>
+                  <span className="block py-1 text-sm text-neutral-400">{t("footer.facebook")}</span>
+                  <span className="block py-1 text-sm text-neutral-400">{t("footer.tiktok")}</span>
+                </div>
+              </div>
+            </div>
+            <Link href="/about" className="text-xs font-medium text-white transition hover:text-accent">
               {t("footer.about")}
             </Link>
           </div>
@@ -217,13 +241,23 @@ export default function Header() {
 
         {mobileMenuOpen && (
           <nav aria-label="Primary mobile" className="border-t border-border px-4 pb-4 md:hidden">
-            <div className="flex gap-4 border-b border-border py-2.5">
+            <div className="flex flex-wrap gap-x-4 gap-y-2 border-b border-border py-2.5">
               <Link href="/stores" onClick={closeMobileMenu} className="text-sm text-neutral-700">
                 {t("header.storeLocator")}
               </Link>
               <Link href="/about" onClick={closeMobileMenu} className="text-sm text-neutral-700">
                 {t("footer.about")}
               </Link>
+              <a
+                href="https://www.instagram.com/ishuemoda/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-neutral-700"
+              >
+                {t("footer.instagram")}
+              </a>
+              <span className="text-sm text-neutral-400">{t("footer.facebook")}</span>
+              <span className="text-sm text-neutral-400">{t("footer.tiktok")}</span>
             </div>
             {navLinks.map((link) => (
               <div key={link.href} className="border-b border-border py-1 last:border-b-0">

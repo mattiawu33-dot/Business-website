@@ -43,7 +43,7 @@ export default function StoresContent() {
                 <iframe
                   key={selected.id}
                   title={selected.name}
-                  src={`https://www.google.com/maps?q=${selected.lat},${selected.lng}&z=15&output=embed`}
+                  src={`https://maps.google.com/maps?q=${selected.lat},${selected.lng}&z=15&output=embed`}
                   className="h-full w-full border-0"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
