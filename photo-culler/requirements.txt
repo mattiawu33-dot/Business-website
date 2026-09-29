@@ -1,0 +1,8 @@
+# Needed by cull_photos.py
+opencv-python-headless>=4.8   # image loading + Laplacian sharpness
+numpy>=1.24                   # number crunching on pixel arrays
+rawpy>=0.19                   # opens Sony .ARW raw files (reads the embedded preview)
+exifread>=3.0                 # reads the capture time from JPEG and ARW files
+
+# Only needed by make_sample_photos.py (it writes EXIF into test JPEGs)
+Pillow>=10.0
