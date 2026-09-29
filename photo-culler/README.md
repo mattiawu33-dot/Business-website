@@ -72,6 +72,13 @@ When it finishes, you'll find inside your photo folder:
 
 ## 3. Try it on fake sample photos first
 
+**Easiest way:** double-click `run_test.command` (Mac) or `run_test.bat`
+(Windows). It installs everything the first time, runs the test and opens the
+results. (On a Mac, if it says the file can't be opened, right-click it and
+choose **Open**.)
+
+Or do it by hand:
+
 `make_sample_photos.py` creates 16 fake photos with known answers. Each has a
 blurred background with a sharp "player", and some frames get motion blur,
 darkness or blown highlights:
